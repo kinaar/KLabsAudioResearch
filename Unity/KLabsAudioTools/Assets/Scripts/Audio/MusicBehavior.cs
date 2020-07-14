@@ -7,20 +7,40 @@ using UnityEngine;
 
 public class MusicBehavior : MonoBehaviour
 {
+    [Header("General Settings")]
     public AudioSource audioSource;
     public float userBpm = 120.0f;
     public bool transition = false;
 
-    [Space]
+    [Space] /////// Music A
+
+    [Header("Musical Segment A")]
 
     public AudioClip musicalSegmentA;
     public int lengthSegmentA = 4;
+
+    public enum transitionChoicesA
+    {
+        onTriggerEnter,
+        onStart
+    };
+    public transitionChoicesA transitionChoiceA;
+
     public bool postExitA = true;
     
-    [Space]
+    [Space] /////// Music B
+
+    [Header("Musical Segment B")]
 
     public AudioClip musicalSegmentB;
     public int lengthSegmentB = 4;
+
+    public enum transitionChoicesB
+    {
+        onTriggerEnter,
+        onStart
+    };
+    public transitionChoicesB transitionChoiceB;
     public bool postExitB = true;
     
     // PRIVATE

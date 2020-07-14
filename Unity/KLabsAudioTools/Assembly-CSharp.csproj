@@ -45,6 +45,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Audio\AmbianceSequencer.cs" />
      <Compile Include="Assets\Scripts\Audio\GlobalAudioManager.cs" />
      <Compile Include="Assets\Scripts\Audio\MusicBehavior.cs" />
  <Reference Include="UnityEngine">
