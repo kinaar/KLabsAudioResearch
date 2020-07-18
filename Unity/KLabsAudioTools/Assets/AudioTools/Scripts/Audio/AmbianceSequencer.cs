@@ -40,6 +40,9 @@ public class AmbianceSequencer : MonoBehaviour
     private float randTime;
     private float bedVol = 0.0f;
     private float randVol = 0.0f;
+    private float volFade = 0.0f;
+
+    private bool fadeIn = false, fadeOut = false;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +62,7 @@ public class AmbianceSequencer : MonoBehaviour
         ambianceBedSource.clip = ambianceBed;
         ambianceBedSource.playOnAwake = false;
         ambianceBedSource.loop = true;
-        ambianceBedSource.Play();
+        //ambianceBedSource.Play();
 
         randomSoundsSource.playOnAwake = false;
 
@@ -67,6 +70,8 @@ public class AmbianceSequencer : MonoBehaviour
 
         bedVol = Mathf.Pow(10, bedVolume/20);
         randVol = Mathf.Pow(10, randomVolume/20);
+
+        volFade = 0.0f;
 
     }
 
@@ -79,9 +84,38 @@ public class AmbianceSequencer : MonoBehaviour
         bedVol = Mathf.Pow(10, bedVolume/20);
         randVol = Mathf.Pow(10, randomVolume/20);
 
-        ambianceBedSource.volume = bedVol;
+        if(fadeIn)
+        {
+            ambianceBedSource.volume += Time.deltaTime / 1.0f;
+            randomSoundsSource.volume += Time.deltaTime / 1.0f;
+            if(ambianceBedSource.volume >= bedVol)
+            {
+                fadeIn = false;
+                print("false");
+            }
+        }
+        else if(fadeOut == false)
+        {
+            ambianceBedSource.volume = bedVol;
+            randomSoundsSource.volume = randVol;
+        }
 
-        if(chronometer >= randTime)
+        if(fadeOut)
+        {
+            ambianceBedSource.volume -= Time.deltaTime / 1.0f;
+            randomSoundsSource.volume -= Time.deltaTime / 1.0f;
+            
+            if(ambianceBedSource.volume <= 0.0f)
+            {
+                fadeOut = false;
+                ambianceBedSource.Stop();
+                randomSoundsSource.Stop();
+                print("false");
+            }
+        }
+        
+
+        if(chronometer >= randTime && ambianceBedSource.isPlaying)
         {
             int randNb = Random.Range(0, randomSounds.Length);
             randomSoundsSource.clip = randomSounds[randNb];
@@ -97,5 +131,25 @@ public class AmbianceSequencer : MonoBehaviour
             chronometer = 0.0f;
         }
         
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if(collider.gameObject.tag == "Player")
+        {
+            ambianceBedSource.volume = 0.0f;
+            fadeIn = true;
+            ambianceBedSource.Play();
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if(collider.gameObject.tag == "Player")
+        {
+            //volFade = 0.0f;
+            //ambianceBedSource.Stop();
+            fadeOut = true;
+        }
     }
 }
