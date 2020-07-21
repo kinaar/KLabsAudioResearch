@@ -46,8 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\AudioTools\Scripts\Audio\AmbianceSequencer.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\AmbienceManager.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\AmbienceObject.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\CharacterAudioManager.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\GlobalAudioManager.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\MusicBehavior.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\Wind_Maker_KLabs.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
