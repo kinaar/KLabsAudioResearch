@@ -1902,7 +1902,7 @@ GameObject:
   - component: {fileID: 1607142245}
   m_Layer: 0
   m_Name: Ambiance_01 (1)
-  m_TagString: Untagged
+  m_TagString: AmbienceZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1920,8 +1920,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
+  sourceBed: {fileID: 0}
   m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
   randomSounds: []
+  fadeTime: 0.5
 --- !u!65 &1607142246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1990,8 +1992,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607142244}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.115871, y: 8.2987175, z: 3.682511}
-  m_LocalScale: {x: 50.433533, y: 26.007, z: 50.707706}
+  m_LocalPosition: {x: 23.832, y: 8.2987175, z: 3.682511}
+  m_LocalScale: {x: 50.988304, y: 26.007, z: 50.707706}
   m_Children: []
   m_Father: {fileID: 960734784}
   m_RootOrder: 0
@@ -2026,8 +2028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6924b730f22c9949a2eccf948343841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
-  masterVolume: 0
+  masterVolume: 1
 --- !u!4 &1654884410
 Transform:
   m_ObjectHideFlags: 0
@@ -2283,7 +2284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ambienceGeneralVol: 0
   mute: 0
-  ambienceAudioSource: {fileID: 0}
   ids: 
 --- !u!1001 &1920089008
 PrefabInstance:
@@ -2620,7 +2620,7 @@ GameObject:
   - component: {fileID: 2051808043}
   m_Layer: 0
   m_Name: Ambiance_01 (2)
-  m_TagString: Untagged
+  m_TagString: AmbienceZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2633,8 +2633,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051808041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.238, y: -1.991, z: 3.61}
-  m_LocalScale: {x: 9.89506, y: 5.435463, z: 6.2471895}
+  m_LocalPosition: {x: -6.551, y: -1.991, z: 3.61}
+  m_LocalScale: {x: 9.27187, y: 5.435463, z: 6.2471895}
   m_Children: []
   m_Father: {fileID: 960734784}
   m_RootOrder: 3
@@ -2652,8 +2652,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
+  sourceBed: {fileID: 0}
   m_bed: {fileID: 8300000, guid: 4657fb1d5dac2e745a0f76fa5f33317c, type: 3}
   randomSounds: []
+  fadeTime: 1
 --- !u!65 &2051808044
 BoxCollider:
   m_ObjectHideFlags: 0

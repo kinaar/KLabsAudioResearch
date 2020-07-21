@@ -6,11 +6,14 @@ public class AmbienceObject : MonoBehaviour
 {
     public GameObject ambienceManager;
     AmbienceManager managerScript;
-    AudioSource sourceBed;
+    
+    [HideInInspector]
+    public AudioSource sourceBed;
 
     [Header("Audio Clips")] //// Audio clips
     public AudioClip m_bed;
     public AudioClip[] randomSounds;
+    public float fadeTime = 1.0f;
 
     private bool fadeIn = false, fadeOut = false, done = true;
 
@@ -26,26 +29,28 @@ public class AmbienceObject : MonoBehaviour
         if (sourceBed != null)
         {
 
+            float generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol)/20.0f);
+
             if (fadeIn == true && done == false)
             {
-                sourceBed.volume += Time.deltaTime / 1.0f;
+                sourceBed.volume += Time.deltaTime / fadeTime;
                 //randomSoundsSource.volume += Time.deltaTime / 1.0f;
-                if (sourceBed.volume >= 1.0f)
+                if (sourceBed.volume >= generalVolume)
                 {
                     fadeIn = false;
-                    print("false");
+                    print(generalVolume);
                 }
             }
             else if (fadeOut == false && done == false)
             {
-                sourceBed.volume = 1.0f;
+                sourceBed.volume = generalVolume;
                 done = true;
                 //randomSoundsSource.volume = randVol;
             }
 
             if (fadeOut == true && done == false)
             {
-                sourceBed.volume -= Time.deltaTime / 1.0f;
+                sourceBed.volume -= Time.deltaTime / fadeTime;
                 //randomSoundsSource.volume -= Time.deltaTime / 1.0f;
 
                 if (sourceBed.volume <= 0.0f)
