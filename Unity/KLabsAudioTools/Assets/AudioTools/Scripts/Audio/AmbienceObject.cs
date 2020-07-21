@@ -12,7 +12,7 @@ public class AmbienceObject : MonoBehaviour
     public AudioClip m_bed;
     public AudioClip[] randomSounds;
 
-    private bool fadeIn = false, fadeOut = false;
+    private bool fadeIn = false, fadeOut = false, done = true;
 
     void Start()
     {
@@ -22,38 +22,41 @@ public class AmbienceObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(sourceBed != null){
-        
-        if(fadeIn)
-        {
-            sourceBed.volume += Time.deltaTime / 1.0f;
-            //randomSoundsSource.volume += Time.deltaTime / 1.0f;
-            if(sourceBed.volume >= 1.0f)
-            {
-                fadeIn = false;
-                print("false");
-            }
-        }
-        else if(fadeOut == false)
-        {
-            sourceBed.volume = 1.0f;
-            //randomSoundsSource.volume = randVol;
-        }
 
-        if(fadeOut)
+        if (sourceBed != null)
         {
-            sourceBed.volume -= Time.deltaTime / 1.0f;
-            //randomSoundsSource.volume -= Time.deltaTime / 1.0f;
-            
-            if(sourceBed.volume <= 0.0f)
+
+            if (fadeIn == true && done == false)
             {
-                fadeOut = false;
-                sourceBed.Stop();
-                Destroy(sourceBed);
-                //randomSoundsSource.Stop();
-                print("false");
+                sourceBed.volume += Time.deltaTime / 1.0f;
+                //randomSoundsSource.volume += Time.deltaTime / 1.0f;
+                if (sourceBed.volume >= 1.0f)
+                {
+                    fadeIn = false;
+                    print("false");
+                }
             }
+            else if (fadeOut == false && done == false)
+            {
+                sourceBed.volume = 1.0f;
+                done = true;
+                //randomSoundsSource.volume = randVol;
+            }
+
+            if (fadeOut == true && done == false)
+            {
+                sourceBed.volume -= Time.deltaTime / 1.0f;
+                //randomSoundsSource.volume -= Time.deltaTime / 1.0f;
+
+                if (sourceBed.volume <= 0.0f)
+                {
+                    fadeOut = false;
+                    sourceBed.Stop();
+                    Destroy(sourceBed);
+                    done = true;
+                    //randomSoundsSource.Stop();
+                    print("false");
+                }
             }
         }
 
@@ -63,12 +66,13 @@ public class AmbienceObject : MonoBehaviour
     {
         sourceBed = ambienceManager.gameObject.AddComponent<AudioSource>();
 
-        if(collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
             sourceBed.clip = m_bed;
             sourceBed.playOnAwake = false;
             sourceBed.loop = true;
             sourceBed.volume = 0.0f;
+            done = false;
             fadeIn = true;
             sourceBed.Play();
         }
@@ -78,6 +82,7 @@ public class AmbienceObject : MonoBehaviour
     {
         if(collider.gameObject.tag == "Player")
         {
+            done = false;
             fadeOut = true;
         }
     }
