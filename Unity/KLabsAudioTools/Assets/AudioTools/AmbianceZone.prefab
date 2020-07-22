@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1713041311908404930}
   - component: {fileID: 2273593271480285584}
   - component: {fileID: 8556456317338979124}
-  - component: {fileID: 3977482719131804794}
+  - component: {fileID: 7146037015166171626}
   m_Layer: 0
   m_Name: AmbianceZone
   m_TagString: Untagged
@@ -89,12 +89,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860821623405418613}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3977482719131804794
+--- !u!114 &7146037015166171626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,15 +103,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 860821623405418613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c34d819112c83e4697efb4cdd0aea1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88817a328c4a7524ba85e206cb26d4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bedVolume: 0
-  randomVolume: 0
-  ambianceBed: {fileID: 0}
+  ambienceManager: {fileID: 0}
+  m_outputMixerGroup: {fileID: 0}
+  m_generalVolume: 0
+  m_muteGeneral: 0
+  m_fadeInTime: 1
+  m_fadeOutTime: 1
+  m_bed: {fileID: 0}
+  m_bedVolume: 0
+  m_muteBed: 0
   randomSounds: []
+  m_randomVolume: 0
+  m_muteRandom: 0
   timeBetweenInst: 5
   timeRandom: 1
-  lowpassFilterOn: 0
   panRandomization: 0
   volRandomization: 0

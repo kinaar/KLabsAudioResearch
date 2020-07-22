@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
-
 public class MusicBehavior : MonoBehaviour
 {
     [Header("General Settings")]
@@ -61,7 +59,13 @@ public class MusicBehavior : MonoBehaviour
         timer += Time.deltaTime;
         float bpmInSeconds = 1/(userBpm/60.0f);
         //Debug.Log(timer);
-        if(timer - timerDup >= bpmInSeconds)
+        
+        if (transitionChoiceA == transitionChoicesA.onTriggerEnter)
+        {
+            print("Hello");
+        }
+
+        if (timer - timerDup >= bpmInSeconds)
         {
             timerDup += bpmInSeconds;
             counter += 1;
