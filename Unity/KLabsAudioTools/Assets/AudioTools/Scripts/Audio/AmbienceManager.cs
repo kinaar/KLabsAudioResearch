@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AmbienceManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AmbienceManager : MonoBehaviour
     //public AudioSource ambienceAudioSource;
     public List<int> ids;
     GameObject[] ambienceObjects;
+
     void Start()
     {
         muteCopy = mute;

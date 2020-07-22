@@ -1920,10 +1920,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
+  m_outputMixerGroup: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+    type: 2}
+  m_generalVolume: 0
+  m_muteGeneral: 0
+  m_fadeInTime: 1
+  m_fadeOutTime: 1
   sourceBed: {fileID: 0}
   m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
+  m_bedVolume: -3
+  m_muteBed: 0
   randomSounds: []
-  fadeTime: 0.5
+  m_randomVolume: 0
+  m_muteRandom: 0
+  timeBetweenInst: 5
+  timeRandom: 1
+  panRandomization: 0
+  volRandomization: 0
 --- !u!65 &1607142246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2652,10 +2665,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
+  m_outputMixerGroup: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+    type: 2}
+  m_generalVolume: 0
+  m_muteGeneral: 0
+  m_fadeInTime: 1
+  m_fadeOutTime: 1
   sourceBed: {fileID: 0}
   m_bed: {fileID: 8300000, guid: 4657fb1d5dac2e745a0f76fa5f33317c, type: 3}
+  m_bedVolume: -3
+  m_muteBed: 0
   randomSounds: []
-  fadeTime: 1
+  m_randomVolume: 0
+  m_muteRandom: 0
+  timeBetweenInst: 5
+  timeRandom: 1
+  panRandomization: 0
+  volRandomization: 0
 --- !u!65 &2051808044
 BoxCollider:
   m_ObjectHideFlags: 0
