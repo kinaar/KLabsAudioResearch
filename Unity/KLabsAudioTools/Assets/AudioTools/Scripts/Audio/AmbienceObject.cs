@@ -67,6 +67,7 @@ public class AmbienceObject : MonoBehaviour
 
             generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol)/20.0f);
             bedVol = Mathf.Pow(10, m_bedVolume/20.0f);
+            randVol = Mathf.Pow(10, m_randomVolume/20.0f);
             generalMute = managerScript.mute;
 
             fadingIn();
@@ -87,20 +88,9 @@ public class AmbienceObject : MonoBehaviour
             }
 
 
-            if (chronometer >= randTime && sourceBed.isPlaying)
+            if (chronometer >= randTime && sourceBed.isPlaying && randomSounds.Length > 0)
             {
-                int randNb = Random.Range(0, randomSounds.Length);
-                sourceRand.clip = randomSounds[randNb];
-                sourceRand.Play();
-
-                randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
-
-                float panRandom = Random.Range(-1.0f, 1.0f) * (panRandomization / 100);
-                float volRandom = randVol - (Random.Range(0.0f, 1.0f) / 100);
-                sourceRand.panStereo = panRandom;
-                sourceRand.volume = volRandom;
-
-                chronometer = 0.0f;
+                randomSoundPicking();
             }
 
         }
@@ -140,7 +130,7 @@ public class AmbienceObject : MonoBehaviour
         if (fadeIn == true && done == false)
             {
                 sourceBed.volume += Time.deltaTime / m_fadeInTime;
-                sourceRand.volume += Time.deltaTime / 1.0f;
+                sourceRand.volume += Time.deltaTime / m_fadeInTime;
                 if (sourceBed.volume >= bedVol)
                 {
                     fadeIn = false;
@@ -159,11 +149,12 @@ public class AmbienceObject : MonoBehaviour
         if (fadeOut == true && done == false)
         {
             sourceBed.volume -= Time.deltaTime / m_fadeOutTime;
-            //randomSoundsSource.volume -= Time.deltaTime / 1.0f;
+            sourceRand.volume -= Time.deltaTime / m_fadeOutTime;
 
             if (sourceBed.volume <= 0.0f)
             {
                 sourceBed.Stop();
+                Destroy(sourceRand);
                 Destroy(sourceBed);
                 fadeOut = false;
                 done = true;
@@ -191,6 +182,22 @@ public class AmbienceObject : MonoBehaviour
             audioSource.volume = volOg;
             volCopy = volOg;
         }
+    }
+
+    void randomSoundPicking()
+    {
+        int randNb = Random.Range(0, randomSounds.Length);
+        sourceRand.clip = randomSounds[randNb];
+        sourceRand.Play();
+
+        randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
+
+        float panRandom = Random.Range(-1.0f, 1.0f) * (panRandomization / 100);
+        float volRandom = randVol - (Random.Range(0.0f, 1.0f) / 100);
+        sourceRand.panStereo = panRandom;
+        sourceRand.volume = volRandom;
+
+        chronometer = 0.0f;
     }
 
 }

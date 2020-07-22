@@ -516,12 +516,6 @@ Transform:
   m_Father: {fileID: 2104322602}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &439892802 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1930877262826391126}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &448925639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -960,7 +954,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1607142249}
-  - {fileID: 439892802}
   - {fileID: 1481856210}
   - {fileID: 2051808042}
   m_Father: {fileID: 0}
@@ -1653,7 +1646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1481856210
 Transform:
   m_ObjectHideFlags: 0
@@ -1666,7 +1659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 960734784}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1481856211
 MonoBehaviour:
@@ -1901,7 +1894,7 @@ GameObject:
   - component: {fileID: 1607142246}
   - component: {fileID: 1607142245}
   m_Layer: 0
-  m_Name: Ambiance_01 (1)
+  m_Name: Ambiance_Ext
   m_TagString: AmbienceZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1924,19 +1917,22 @@ MonoBehaviour:
     type: 2}
   m_generalVolume: 0
   m_muteGeneral: 0
-  m_fadeInTime: 1
-  m_fadeOutTime: 1
+  m_fadeInTime: 0.7
+  m_fadeOutTime: 2
   sourceBed: {fileID: 0}
   m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
-  m_bedVolume: -3
+  m_bedVolume: -12
   m_muteBed: 0
-  randomSounds: []
-  m_randomVolume: 0
+  randomSounds:
+  - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
+  - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
+  - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
+  m_randomVolume: -23
   m_muteRandom: 0
-  timeBetweenInst: 5
+  timeBetweenInst: 3
   timeRandom: 1
-  panRandomization: 0
-  volRandomization: 0
+  panRandomization: 60
+  volRandomization: 20
 --- !u!65 &1607142246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2632,7 +2628,7 @@ GameObject:
   - component: {fileID: 2051808044}
   - component: {fileID: 2051808043}
   m_Layer: 0
-  m_Name: Ambiance_01 (2)
+  m_Name: Ambiance_Tunnel
   m_TagString: AmbienceZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2650,7 +2646,7 @@ Transform:
   m_LocalScale: {x: 9.27187, y: 5.435463, z: 6.2471895}
   m_Children: []
   m_Father: {fileID: 960734784}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2051808043
 MonoBehaviour:
@@ -2960,92 +2956,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1930877262826391126
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 960734784}
-    m_Modifications:
-    - target: {fileID: 860821623405418613, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_Name
-      value: AmbianceZone
-      objectReference: {fileID: 0}
-    - target: {fileID: 860821623405418613, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.234129
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.7112827
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.682511
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.7985
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 9.775
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511325491933210494, guid: 47e59fab1cf8d20409246f28312cbbdb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.902
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 47e59fab1cf8d20409246f28312cbbdb, type: 3}
