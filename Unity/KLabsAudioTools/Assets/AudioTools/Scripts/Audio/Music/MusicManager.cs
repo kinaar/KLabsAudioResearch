@@ -42,9 +42,11 @@ public class MusicManager : MonoBehaviour
     AudioSource musicSource;
     AudioClip musSeg;
     MusicObject[] objectScript;
+    List<AudioSource> segmentSource = new List<AudioSource>();
 
     bool done = false;
     int musicPlayingID = 0;
+    double dsptime = 0.0f, dspCopy = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -54,13 +56,14 @@ public class MusicManager : MonoBehaviour
         //managerscript.isPlaying = true;
         for(int i = 0; i<m_musicalSegments.Length; i++)
         {
+            segmentSource.Add(gameObject.AddComponent<AudioSource>());
+            musSeg = m_musicalSegments[i].musicalSegment;
+            segmentSource[i].clip = musSeg;
+            segmentSource[i].playOnAwake = false;
             triggerEntered[i] = m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered;
-            //triggerEntered[i] = objectScript[i].triggerEntered;
-            if(i >= m_musicalSegments.Length-1)
-            {
-                Debug.Log("Hello");
-            }
         }
+        dsptime = AudioSettings.dspTime;
+        dspCopy = dsptime;
         
     }
 
@@ -73,40 +76,28 @@ public class MusicManager : MonoBehaviour
 
             if (m_musicalSegments[i].m_playType == musicalSegments.playType.onAwake && done == false)
             {
-                musicSource = gameObject.AddComponent<AudioSource>();
-                musSeg = m_musicalSegments[i].musicalSegment;
-                musicSource.clip = musSeg;
-                //bpmCounter();
-                musicSource.Play();
-                //Debug.Log("onAwake");
+                segmentSource[i].volume = Mathf.Pow(10, (m_generalVolume/20.0f));
+                segmentSource[i].outputAudioMixerGroup = m_outputMixerGroup;
+                segmentSource[i].Play();
                 done = true;
                 m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
             }
-            
-            if (i >= m_musicalSegments.Length - 1)
-            {
-                
-                Debug.Log("Hello");
-            }
         }
-
         //triggerEntered = objectScript.triggerEntered;
         
+        transition();
         bpmCounter();
 
     }
 
     void TriggerEnter(int n)
     {
-        if (m_musicalSegments[n].m_playType != musicalSegments.playType.onAwake )//&& triggerEntered == true)
+        if (m_musicalSegments[n].m_playType != musicalSegments.playType.onAwake )
         {
-            musicSource = gameObject.AddComponent<AudioSource>();
-            musSeg = m_musicalSegments[n].musicalSegment;
-            musicSource.clip = musSeg;
-            //triggerEntered = true;
             Debug.Log("OnTriggerEnter");
-            musicSource.loop = true;
-            musicSource.Play();
+            segmentSource[n].volume = Mathf.Pow(10, (m_generalVolume/20.0f));
+            segmentSource[n].loop = true;
+            segmentSource[n].PlayScheduled(AudioSettings.dspTime + 2.0f);
         }
     }
 
@@ -114,46 +105,87 @@ public class MusicManager : MonoBehaviour
     {
         beatTimer += Time.deltaTime;
         float beatInterval = 60.0f / userBpm;
+        
 
-        if (beatTimer >= beatInterval)
+        if (dsptime - dspCopy >= 0.48f)
         {
-            beatTimer -= beatInterval;
+            /*dspCopy -= dsptime;
             counter += 1;
-            if(counter == m_musicalSegments[0].m_segmentBarLength)
+            dspCopy = dsptime;
+            if (counter == m_musicalSegments[0].m_segmentBarLength)
             {
                 counter = 0;
                 Debug.Log("Boom");
-                //musicSource.loop = false;
-            }
+                Debug.Log(dsptime - dspCopy);
+                Debug.Log(beatInterval * m_musicalSegments[0].m_segmentBarLength);
+                Debug.Log(beatTimer);
+            }*/
+            Debug.Log(dsptime - dspCopy);
+            Debug.Log(beatInterval);
+            dspCopy = dsptime;
+            
         }
+    }
 
+    void transition()
+    {
         for (int i = 0; i < m_musicalSegments.Length; i++)
         {
-            if (triggerEntered[i] && musicSource != null && i != musicPlayingID)
+
+            triggerEntered[i] = m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered;
+
+            //// playNextSegment ////
+            if (triggerEntered[i] && segmentSource[i] != null && i != musicPlayingID && m_musicalSegments[i].m_transition == musicalSegments.transitionType.playNextSegment)
             {
-                musicSource.loop = false;
-                if(musicSource.isPlaying != true)
+                segmentSource[musicPlayingID].loop = false;
+                if(counter == 0 && segmentSource[musicPlayingID].isPlaying != true)
+                {
+                    segmentSource[musicPlayingID].Stop();
+                    triggerEntered[musicPlayingID] = false;
+                    m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+                    done = false;
+                }
+            }
+
+            //// stop the music ////
+            if (triggerEntered[i] && segmentSource[i] != null && i != musicPlayingID && m_musicalSegments[i].m_transition == musicalSegments.transitionType.stop)
+            {
+                //segmentSource[i].loop = false;
+                segmentSource[musicPlayingID].Stop();
+                if(segmentSource[i].isPlaying != true)
                 {
                     triggerEntered[musicPlayingID] = false;
                     m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
                     done = false;
-                    Destroy(musicSource);
+                }
+            }
+
+            //// Fading ////
+            if (triggerEntered[i] && segmentSource[i] != null && i != musicPlayingID && m_musicalSegments[i].m_transition == musicalSegments.transitionType.fading)
+            {
+                float sourceVolume = segmentSource[i].volume;
+                sourceVolume -= Time.deltaTime / 5.0f;
+                segmentSource[i].volume = sourceVolume;
+                if (segmentSource[i].volume <= 0.0f)
+                {
+                    triggerEntered[musicPlayingID] = false;
+                    m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+                    done = true;
                 }
             }
             
             if (triggerEntered[i] && done == false && i != musicPlayingID)
             {
                 TriggerEnter(i);
-                beatTimer = 0.0f;
-                counter = 0;
+                if (segmentSource[musicPlayingID].isPlaying != true)
+                {
+                    beatTimer = 0.0f;
+                    counter = 0;
+                }
                 musicPlayingID = i;
                 done = true;
-                
-                //m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
-                //Debug.Log("Hi");
             }
-
-
         }
     }
+
 }
