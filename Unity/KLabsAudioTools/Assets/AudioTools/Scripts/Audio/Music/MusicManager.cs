@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 public class MusicManager : MonoBehaviour
 {
     [Header("General Settings")]
-    public GameObject musicManager; // Audio Manager (to instantiate AudioSources)
+    //public GameObject musicManager; // Audio Manager (to instantiate AudioSources)
     public AudioMixerGroup m_outputMixerGroup; // Audio Mixer for audio output
 
     [Range(-48.0f, 3.0f)] // General Output Volume
@@ -44,6 +44,7 @@ public class MusicManager : MonoBehaviour
     MusicObject[] objectScript;
 
     bool done = false;
+    int musicPlayingID = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -128,13 +129,27 @@ public class MusicManager : MonoBehaviour
 
         for (int i = 0; i < m_musicalSegments.Length; i++)
         {
-            if (triggerEntered[i] && done == false)
+            if (triggerEntered[i] && musicSource != null && i != musicPlayingID)
+            {
+                musicSource.loop = false;
+                if(musicSource.isPlaying != true)
+                {
+                    triggerEntered[musicPlayingID] = false;
+                    m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+                    done = false;
+                    Destroy(musicSource);
+                }
+            }
+            
+            if (triggerEntered[i] && done == false && i != musicPlayingID)
             {
                 TriggerEnter(i);
                 beatTimer = 0.0f;
                 counter = 0;
+                musicPlayingID = i;
                 done = true;
-                m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+                
+                //m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
                 //Debug.Log("Hi");
             }
 
