@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
 public class UnityExampleMusic : MonoBehaviour
 {
     [Header("General Settings")]
@@ -19,11 +18,11 @@ public class UnityExampleMusic : MonoBehaviour
         public playType m_playType;
         public GameObject triggerObject;
 
-        public enum transitionType { fading, playNextSegment, stop }
-        public transitionType m_transition;
+        public enum transitionType { playAtNextBeat, playNextBar, playAtExitCue, fade, stop }
+        public transitionType m_whenTriggered;
 
         public AudioClip musicalSegment;
-        public int m_segmentBarLength = 4;
+        public int m_segmentBeatLength = 4;
     }
     public musicalSegments[] m_musicalSegments;
 
@@ -42,6 +41,8 @@ public class UnityExampleMusic : MonoBehaviour
     int nbLoops = 1;
     int counter = 0;
     double beatTimer = 0;
+    bool toReset = false , fading = false;
+    int fadingID = 0;
 
     void Start()
     {
@@ -65,30 +66,72 @@ public class UnityExampleMusic : MonoBehaviour
         {
             return;
         }
+        
+        for(int i = 1; i<m_musicalSegments.Length; i++)
+        {
+            m_musicalSegments[i].m_playType = musicalSegments.playType.OnTriggerEnter;
+        }
 
         for (int i = 0; i < m_musicalSegments.Length; i++)
         {
             triggerEntered[i] = m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered;
             
-            if (triggerEntered[i] == true && playing == false)
+            if (triggerEntered[i] == true && playing == false && m_musicalSegments[i].m_playType == musicalSegments.playType.OnTriggerEnter)
             {
-                musicPlayingID = i;
-                audioSources[i].clip = m_musicalSegments[i].musicalSegment;
-                audioSources[i].Play();
-                playing = true;
-                nextEventTime = AudioSettings.dspTime;
+                firstPlay(i);
+            }
 
-                time = AudioSettings.dspTime;
-                dspCopy = time;
-                countBpm = true;
+            if (playing == false && m_musicalSegments[i].m_playType == musicalSegments.playType.onAwake)
+            {
+                firstPlay(i);
             }
 
             if(i != musicPlayingID && triggerEntered[i] == true && done == false)
             {
-                nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBarLength)*(nbLoops);
+                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playAtExitCue)
+                {
+                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
+                }
+                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playNextBar)
+                {
+                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
+                    if(counter < 4)
+                    {
+                        nextEventTime -= 4*(60.0f / userBpm);
+                    }
+                    toReset = true;
+                }
+                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playAtNextBeat)
+                {
+                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops) - (8 - counter -1)*(60.0f / userBpm);
+                    toReset = true;
+                }
+                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.stop)
+                {
+                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
+                }
+                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.fade)
+                {
+                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
+                }
+
                 audioSources[i].clip = m_musicalSegments[i].musicalSegment;
                 audioSources[musicPlayingID].SetScheduledEndTime(nextEventTime);
-                audioSources[i].PlayScheduled(nextEventTime);
+                
+                if(m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.stop && m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.fade)
+                {
+                    audioSources[i].PlayScheduled(nextEventTime);
+                    audioSources[i].volume = 1.0f;
+                }
+
+                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.fade)
+                {
+                    //audioSources[i].volume = 0.8f;
+                    //audioSources[musicPlayingID].volume = 0.0f;
+                    fading = true;
+                    fadingID = musicPlayingID;
+                }
+                
                 m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
                 musicPlayingID = i;
                 nbLoops = 1;
@@ -101,6 +144,19 @@ public class UnityExampleMusic : MonoBehaviour
                 done = false;
             }
 
+            if(fading)
+            {
+                isFading(musicPlayingID, fadingID);
+            }
+
+        }
+
+        if(toReset && AudioSettings.dspTime >= nextEventTime)
+        {
+            Debug.Log("prout");
+            counter = 0;
+            nbLoops = 2;
+            toReset = false;
         }
 
         if(countBpm)
@@ -119,7 +175,7 @@ public class UnityExampleMusic : MonoBehaviour
             Debug.Log("Scheduled source " + flip + " to start at time " + nextEventTime);
 
             // Place the next event 16 beats from here at a rate of 140 beats per minute
-            nextEventTime += 60.0f / userBpm * m_musicalSegments[0].m_segmentBarLength;
+            nextEventTime += 60.0f / userBpm * m_musicalSegments[0].m_segmentBeatLength;
 
             // Flip between two audio sources so that the loading process of one does not interfere with the one that's playing out
             flip = 1 - flip;
@@ -135,13 +191,48 @@ public class UnityExampleMusic : MonoBehaviour
         {
             dspCopy = time;
             counter += 1;
-            if (counter == m_musicalSegments[0].m_segmentBarLength)
+            Debug.Log(counter);
+            if (counter == m_musicalSegments[0].m_segmentBeatLength)
             {
-                counter = 0;
                 nbLoops++;
+                counter = 0;
                 Debug.Log(nbLoops);
             }
+            
             beatTimer = 0;
+        }
+    }
+
+    void firstPlay(int i)
+    {
+        musicPlayingID = i;
+        audioSources[i].clip = m_musicalSegments[i].musicalSegment;
+        audioSources[i].Play();
+
+        playing = true;
+        nextEventTime = AudioSettings.dspTime;
+
+        if (i + 1 <= m_musicalSegments.Length && m_musicalSegments[i + 1].m_whenTriggered == musicalSegments.transitionType.fade)
+        {
+            audioSources[i+1].clip = m_musicalSegments[i+1].musicalSegment;
+            audioSources[i+1].Play();
+            audioSources[i+1].volume = 0.0f;
+            Debug.Log("Next is fade");
+        }
+
+        time = AudioSettings.dspTime;
+        dspCopy = time;
+        countBpm = true;
+    }
+
+    void isFading(int i, int g)
+    {
+        audioSources[i].volume += Time.deltaTime / 2.0f;
+        audioSources[g].volume -= Time.deltaTime / 2.0f;
+
+        if (audioSources[g].volume <= 0.0f)
+        {
+            fading = false;
         }
     }
 
