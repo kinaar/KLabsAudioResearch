@@ -75,7 +75,7 @@ public class UnityExampleMusic : MonoBehaviour
         for (int i = 0; i < m_musicalSegments.Length; i++)
         {
             triggerEntered[i] = m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered;
-            
+
             if (triggerEntered[i] == true && playing == false && m_musicalSegments[i].m_playType == musicalSegments.playType.OnTriggerEnter)
             {
                 firstPlay(i);
@@ -86,65 +86,31 @@ public class UnityExampleMusic : MonoBehaviour
                 firstPlay(i);
             }
 
-            if(i != musicPlayingID && triggerEntered[i] == true && done == false)
+
+
+            if (triggerEntered[i] == true && done == false) //i != musicPlayingID
             {
-                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playAtExitCue)
-                {
-                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
-                }
-                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playNextBar)
-                {
-                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
-                    if(counter < 4)
-                    {
-                        nextEventTime -= 4*(60.0f / userBpm);
-                    }
-                    toReset = true;
-                }
-                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playAtNextBeat)
-                {
-                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops) - (8 - counter -1)*(60.0f / userBpm);
-                    toReset = true;
-                }
-                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.stop)
-                {
-                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
-                }
-                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.fade)
-                {
-                    nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength)*(nbLoops);
-                }
-
-                audioSources[i].clip = m_musicalSegments[i].musicalSegment;
-                audioSources[musicPlayingID].SetScheduledEndTime(nextEventTime);
-                
-                if(m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.stop && m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.fade)
-                {
-                    audioSources[i].PlayScheduled(nextEventTime);
-                    audioSources[i].volume = 1.0f;
-                }
-
-                if(m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.fade)
-                {
-                    //audioSources[i].volume = 0.8f;
-                    //audioSources[musicPlayingID].volume = 0.0f;
-                    fading = true;
-                    fadingID = musicPlayingID;
-                }
-                
-                m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
-                musicPlayingID = i;
-                nbLoops = 1;
-                done = true;
+                playingNext(i);
             }
 
-            if(i != musicPlayingID && triggerEntered[i] == true && done == true)
+            /*if (triggerEntered[musicPlayingID] && done == false)
+            {
+                Debug.Log("oui");
+                if (musicPlayingID > 0 && musicPlayingID < m_musicalSegments.Length)
+                {
+                    playingNext(musicPlayingID - 1);
+                }
+                m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+                // if(i != musicPlayingID && triggerEntered[i] == true && done == false)
+            }*/
+
+            if (i != musicPlayingID && triggerEntered[i] == true && done == true)
             {
                 nbLoops -= 1;
                 done = false;
             }
 
-            if(fading)
+            if (fading)
             {
                 isFading(musicPlayingID, fadingID);
             }
@@ -223,6 +189,7 @@ public class UnityExampleMusic : MonoBehaviour
         time = AudioSettings.dspTime;
         dspCopy = time;
         countBpm = true;
+        m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
     }
 
     void isFading(int i, int g)
@@ -234,6 +201,65 @@ public class UnityExampleMusic : MonoBehaviour
         {
             fading = false;
         }
+    }
+
+    void playingNext(int i)
+    {
+        if (m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playAtExitCue)
+        {
+            nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength) * (nbLoops);
+        }
+        if (m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playNextBar)
+        {
+            nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength) * (nbLoops);
+            if (counter < 4)
+            {
+                nextEventTime -= 4 * (60.0f / userBpm);
+            }
+            toReset = true;
+        }
+        if (m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.playAtNextBeat)
+        {
+            nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength) * (nbLoops) - (8 - counter - 1) * (60.0f / userBpm);
+            toReset = true;
+        }
+        if (m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.stop)
+        {
+            nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength) * (nbLoops);
+        }
+        if (m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.fade)
+        {
+            nextEventTime += (60.0f / userBpm * m_musicalSegments[i].m_segmentBeatLength) * (nbLoops);
+        }
+
+        audioSources[i].clip = m_musicalSegments[i].musicalSegment;
+        if(i != musicPlayingID)
+        {
+            audioSources[musicPlayingID].SetScheduledEndTime(nextEventTime);
+        }
+
+        if (m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.stop && m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.fade)
+        {
+            if(i != musicPlayingID)
+            {
+                audioSources[i].PlayScheduled(nextEventTime);
+            }
+            audioSources[i].volume = 1.0f;
+        }
+
+        if (m_musicalSegments[i].m_whenTriggered == musicalSegments.transitionType.fade)
+        {
+            //audioSources[i].volume = 0.8f;
+            //audioSources[musicPlayingID].volume = 0.0f;
+            fading = true;
+            fadingID = musicPlayingID;
+        }
+
+        m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+        m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+        musicPlayingID = i;
+        nbLoops = 1;
+        done = true;
     }
 
 }

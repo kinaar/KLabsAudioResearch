@@ -935,6 +935,11 @@ PrefabInstance:
       propertyPath: volRandomization
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8556456317338979124, guid: 47e59fab1cf8d20409246f28312cbbdb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47e59fab1cf8d20409246f28312cbbdb, type: 3}
 --- !u!1001 &644342021
@@ -1259,23 +1264,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 920631662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff8ab588eb49f94d8112ce3ebacaa7a, type: 3}
+  m_Script: {fileID: 11500000, guid: ee80c4ae8118f6c4cb67368af54b704e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_outputMixerGroup: {fileID: -3210893790648530127, guid: 2914ca2d680945e43aeb0fd8f3d9b1f8,
-    type: 2}
+  musicTrigger:
+  - {fileID: 1534529269}
+  audioClip:
+  - {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
   userBpm: 125
-  m_musicalSegments:
-  - m_playType: 0
-    triggerObject: {fileID: 1534529269}
-    m_whenTriggered: 2
-    musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
-    m_segmentBeatLength: 8
-  - m_playType: 0
-    triggerObject: {fileID: 340036736}
-    m_whenTriggered: 3
-    musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
-    m_segmentBeatLength: 8
 --- !u!1 &960734783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,10 +2323,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
   - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
   - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
-  m_randomVolume: -23
+  m_randomVolume: -48
   m_muteRandom: 0
-  timeBetweenInst: 3
-  timeRandom: 1
+  timeBetweenInst: 5
+  timeRandom: 2
   panRandomization: 60
   volRandomization: 20
 --- !u!65 &1607142246

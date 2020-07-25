@@ -21,7 +21,7 @@ public class MusicObject : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            triggerEntered = true;
+            triggerEntered = !triggerEntered;
         }
     }
 }
