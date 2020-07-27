@@ -536,6 +536,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 172129510}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &373719228 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1964124275}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &373719233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373719228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb8452c2592a1a49a1e24ba6cad46c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charaAudioClipsArray:
+  - _playOnTrigger: 0
+    soundToTrig: {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+    customKey: g
+  - _playOnTrigger: 3
+    soundToTrig: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+    customKey: g
 --- !u!1 &374137085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1229,6 @@ GameObject:
   m_Component:
   - component: {fileID: 920631663}
   - component: {fileID: 920631664}
-  - component: {fileID: 920631665}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -1233,45 +1257,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920631662}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc41d582db85462459c49116fc18a0bb, type: 3}
+  m_Script: {fileID: 11500000, guid: aff8ab588eb49f94d8112ce3ebacaa7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_outputMixerGroup: {fileID: -3210893790648530127, guid: 2914ca2d680945e43aeb0fd8f3d9b1f8,
     type: 2}
-  m_generalVolume: -18
-  m_muteGeneral: 0
   userBpm: 125
-  m_fadeInTime: 1
   m_musicalSegments:
   - m_playType: 0
-    triggerObject: {fileID: 340036736}
-    m_transition: 1
-    musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
-    m_segmentBarLength: 8
-  - m_playType: 0
     triggerObject: {fileID: 1534529269}
-    m_transition: 1
+    m_whenTriggered: 2
+    musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
+    m_segmentBeatLength: 8
+  - m_playType: 0
+    triggerObject: {fileID: 340036736}
+    m_whenTriggered: 3
     musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
-    m_segmentBarLength: 8
---- !u!114 &920631665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920631662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee80c4ae8118f6c4cb67368af54b704e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicTrigger:
-  - {fileID: 1534529269}
-  audioClip:
-  - {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
-  userBpm: 125
+    m_segmentBeatLength: 8
 --- !u!1 &960734783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,10 +2592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb8452c2592a1a49a1e24ba6cad46c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterVolume: 0
-  charaAudioClipsArray:
-  - _playOnTrigger: 0
-    soundsToTrigger: []
+  charaAudioClipsArray: []
 --- !u!1 &1662948029
 GameObject:
   m_ObjectHideFlags: 0

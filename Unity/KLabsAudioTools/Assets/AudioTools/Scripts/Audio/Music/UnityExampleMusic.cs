@@ -34,6 +34,7 @@ public class UnityExampleMusic : MonoBehaviour
     private bool running = false;
     MusicObject objectscript;
     List<bool> triggerEntered = new List<bool>();
+    List<bool> triggerEnteredCopy = new List<bool>();
     bool playing = false, done = false, countBpm = false;
     int musicPlayingID = 0;
     double time = 0;
@@ -54,6 +55,7 @@ public class UnityExampleMusic : MonoBehaviour
             audioSources[i].outputAudioMixerGroup = m_outputMixerGroup;
             audioSources[i].loop = true;
             triggerEntered.Add(m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered);
+            triggerEnteredCopy.Add(triggerEntered[i]);
         }
 
         nextEventTime = AudioSettings.dspTime + 2.0f;
@@ -76,9 +78,10 @@ public class UnityExampleMusic : MonoBehaviour
         {
             triggerEntered[i] = m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered;
 
-            if (triggerEntered[i] == true && playing == false && m_musicalSegments[i].m_playType == musicalSegments.playType.OnTriggerEnter)
+            if (triggerEntered[0] != triggerEnteredCopy[0] && playing == false && m_musicalSegments[i].m_playType == musicalSegments.playType.OnTriggerEnter)
             {
                 firstPlay(i);
+                triggerEnteredCopy[0] = triggerEntered[0];
             }
 
             if (playing == false && m_musicalSegments[i].m_playType == musicalSegments.playType.onAwake)
@@ -88,9 +91,29 @@ public class UnityExampleMusic : MonoBehaviour
 
 
 
-            if (triggerEntered[i] == true && done == false) //i != musicPlayingID
+            if (triggerEntered[i] != triggerEnteredCopy[i] && done == false && playing == true) //i != musicPlayingID
             {
-                playingNext(i);
+                if (i == 0 && triggerEntered[0] == false)
+                {
+                    audioSources[0].Stop();
+                    Debug.Log("ending");
+                    triggerEnteredCopy[0] = triggerEntered[0];
+                    playing = false;
+                    countBpm = false;
+                }
+                else
+                {
+                    Debug.Log("entered or exit");
+                    if (triggerEntered[i] == true)
+                    {
+                        playingNext(i);
+                    }
+                    else
+                    {
+                        playingNext(i - 1);
+                        triggerEnteredCopy[i] = triggerEntered[i];
+                    }
+                }
             }
 
             /*if (triggerEntered[musicPlayingID] && done == false)
@@ -189,7 +212,8 @@ public class UnityExampleMusic : MonoBehaviour
         time = AudioSettings.dspTime;
         dspCopy = time;
         countBpm = true;
-        m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+        toReset = true;
+        //m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
     }
 
     void isFading(int i, int g)
@@ -233,17 +257,13 @@ public class UnityExampleMusic : MonoBehaviour
         }
 
         audioSources[i].clip = m_musicalSegments[i].musicalSegment;
-        if(i != musicPlayingID)
-        {
-            audioSources[musicPlayingID].SetScheduledEndTime(nextEventTime);
-        }
+
+        audioSources[musicPlayingID].SetScheduledEndTime(nextEventTime);
 
         if (m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.stop && m_musicalSegments[i].m_whenTriggered != musicalSegments.transitionType.fade)
         {
-            if(i != musicPlayingID)
-            {
-                audioSources[i].PlayScheduled(nextEventTime);
-            }
+            //if(i != musicPlayingID)
+            audioSources[i].PlayScheduled(nextEventTime);
             audioSources[i].volume = 1.0f;
         }
 
@@ -255,8 +275,10 @@ public class UnityExampleMusic : MonoBehaviour
             fadingID = musicPlayingID;
         }
 
-        m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
-        m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+        //m_musicalSegments[musicPlayingID].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+        //m_musicalSegments[i].triggerObject.gameObject.GetComponent<MusicObject>().triggerEntered = false;
+        triggerEnteredCopy[i] = triggerEntered[i];
+        triggerEnteredCopy[musicPlayingID] = triggerEntered[musicPlayingID];
         musicPlayingID = i;
         nbLoops = 1;
         done = true;
