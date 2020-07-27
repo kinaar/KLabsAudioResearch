@@ -554,7 +554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb8452c2592a1a49a1e24ba6cad46c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_audioMixer: {fileID: 24300002, guid: a35d4afbca549aa45b70cd977168da9b, type: 2}
+  m_audioMixer: {fileID: -2894626614072739350, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+    type: 2}
   charaAudioClipsArray:
   - _playOnTrigger: 0
     soundToTrig:
@@ -939,7 +940,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_outputMixerGroup
       value: 
-      objectReference: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+      objectReference: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
         type: 2}
     - target: {fileID: 7146037015166171626, guid: 47e59fab1cf8d20409246f28312cbbdb,
         type: 3}
@@ -1009,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &531096597
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1415,7 +1416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff8ab588eb49f94d8112ce3ebacaa7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_outputMixerGroup: {fileID: -3210893790648530127, guid: 2914ca2d680945e43aeb0fd8f3d9b1f8,
+  m_outputMixerGroup: {fileID: 4999304014586523870, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   userBpm: 125
   m_musicalSegments:
@@ -2358,7 +2359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   m_generalVolume: 0
   m_muteGeneral: 0
@@ -2447,6 +2448,7 @@ GameObject:
   - component: {fileID: 1607142247}
   - component: {fileID: 1607142246}
   - component: {fileID: 1607142245}
+  - component: {fileID: 1607142250}
   m_Layer: 0
   m_Name: Ambiance_Ext
   m_TagString: AmbienceZone
@@ -2467,7 +2469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   m_generalVolume: 0
   m_muteGeneral: 0
@@ -2560,6 +2562,21 @@ Transform:
   m_Father: {fileID: 1662948030}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1607142250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607142244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dc5d46348de8643b9c81b653d558be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e, type: 2}
+  parameterName: reverbSend
+  reverbVolume: 0
 --- !u!1 &1632185376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,7 +2624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   m_generalVolume: 0
   m_muteGeneral: 0
@@ -2705,7 +2722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!167 &1639194312
 AudioReverbZone:
   m_ObjectHideFlags: 0
@@ -3508,7 +3525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: 2147459637069071287, guid: 5098ea97160d5d649a3db25e2a88518c,
+  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   m_generalVolume: 0
   m_muteGeneral: 0
