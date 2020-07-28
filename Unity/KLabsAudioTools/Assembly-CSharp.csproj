@@ -55,6 +55,7 @@
      <Compile Include="Assets\AudioTools\Scripts\Audio\Music\NewTest.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Music\UnityExampleMusic.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\MusicBehavior.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\OcclusionFilter.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\ReverbZone.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Wind_Maker_KLabs.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
