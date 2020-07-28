@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 677, y: 342}
   m_MaxSize: {x: 12002, y: 8042}
   vertical: 0
-  controlID: 20
+  controlID: 1695
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 342}
   m_MaxSize: {x: 8002, y: 8042}
   vertical: 1
-  controlID: 21
+  controlID: 1563
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 402, y: 221}
   m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 22
+  controlID: 1564
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -391,10 +391,10 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 144}
-      m_SelectedIDs: fefaffff
-      m_LastClickedID: -1282
-      m_ExpandedIDs: 72fbffffba350000323600007a360000
+      scrollPos: {x: 0, y: 99}
+      m_SelectedIDs: 36360000
+      m_LastClickedID: 13878
+      m_ExpandedIDs: 72fbffff7c360000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -454,9 +454,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -13.953831, y: 3.6482396, z: 1.7851562}
+    m_Target: {x: -14.326321, y: 4.059573, z: -0.23309481}
     speed: 2
-    m_Value: {x: -13.953831, y: 3.6482396, z: 1.7851562}
+    m_Value: {x: -14.326321, y: 4.059573, z: -0.23309481}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -502,13 +502,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.21105035, y: -0.6592064, z: 0.20066778, w: 0.6932925}
+    m_Target: {x: 0.29867938, y: -0.30587882, z: 0.10170049, w: 0.8982785}
     speed: 2
-    m_Value: {x: 0.21104851, y: -0.65920067, z: 0.20066604, w: 0.6932865}
+    m_Value: {x: 0.29867664, y: -0.30587602, z: 0.10169956, w: 0.89827025}
   m_Size:
-    m_Target: 9.972849
+    m_Target: 26.099604
     speed: 2
-    m_Value: 9.972849
+    m_Value: 26.099604
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -598,19 +598,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AudioTools/Scripts/Audio
+    - Assets/AudioTools/AudioAssets/Foleys
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/AudioTools/Scripts/Audio
+  - Assets/AudioTools/AudioAssets/Foleys
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\guerr\Desktop\ENJMIN\Memoire_M1\Git\KLabsAudioResearch\Unity\KLabsAudioTools
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 26380000
-    m_LastClickedID: 14374
+    m_SelectedIDs: 823c0000
+    m_LastClickedID: 15490
     m_ExpandedIDs: 000000000e38000010380000123800001438000016380000183800001a3800001c3800001e3800002038000022380000243800002638000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000e38000010380000123800001438000016380000183800001a3800001c3800001e38000020380000223800002438000026380000
+    m_ExpandedIDs: 000000000e38000010380000123800001438000016380000183800001a3800001c3800001e3800002038000022380000243800002638000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -664,9 +664,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: fefaffff
-    m_LastClickedInstanceID: -1282
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 36360000
+    m_LastClickedInstanceID: 13878
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -876,4 +876,4 @@ MonoBehaviour:
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 100

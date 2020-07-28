@@ -10,6 +10,8 @@ public class OcclusionFilter : MonoBehaviour
     public GameObject listener;
     public float fqcWhenOccluded = 1000.0f;
     public float transitionTime = 1.0f;
+    private AudioSource audioSource;
+    private float maxDistance = 0.0f;
 
     private void Update()
     {
@@ -19,6 +21,9 @@ public class OcclusionFilter : MonoBehaviour
         Vector3 destination = soundSourceVector - playerVector;
         Debug.DrawRay(transform.position, destination, Color.blue);
 
+        audioSource = gameObject.GetComponent<AudioSource>();
+        maxDistance = audioSource.maxDistance;
+        //Debug.Log(maxDistance);
         if(Physics.Raycast(transform.position, destination, out hit))
         {
 
