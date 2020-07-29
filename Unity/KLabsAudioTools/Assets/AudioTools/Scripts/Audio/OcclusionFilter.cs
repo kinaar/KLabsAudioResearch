@@ -19,40 +19,46 @@ public class OcclusionFilter : MonoBehaviour
         Vector3 soundSourceVector = listener.transform.position;
         Vector3 playerVector = transform.position;
         Vector3 destination = soundSourceVector - playerVector;
-        Debug.DrawRay(transform.position, destination, Color.blue);
+        
 
         audioSource = gameObject.GetComponent<AudioSource>();
         maxDistance = audioSource.maxDistance;
-        //Debug.Log(maxDistance);
-        if(Physics.Raycast(transform.position, destination, out hit))
+
+        if (destination.x < maxDistance && destination.z < maxDistance)
         {
-
-            AudioLowPassFilter lowpass = gameObject.GetComponent<AudioLowPassFilter>();
-            
-            var rig = hit.collider.gameObject.tag;
-
-            if(rig == "OcclusionObject")
+            Debug.DrawRay(transform.position, destination, Color.blue);
+            if (Physics.Raycast(transform.position, destination, out hit))
             {
-                Debug.Log("object");
 
-                if(lowpass.cutoffFrequency > fqcWhenOccluded)
+                AudioLowPassFilter lowpass = gameObject.GetComponent<AudioLowPassFilter>();
+
+                var rig = hit.collider.gameObject.tag;
+
+                float cutofffreq = fqcWhenOccluded;
+
+                if (rig == "OcclusionObject")
                 {
-                    lowpass.cutoffFrequency -= Time.deltaTime*10000.0f*transitionTime;
+                    Debug.Log("object");
+
+                    if (lowpass.cutoffFrequency > cutofffreq)
+                    {
+                        lowpass.cutoffFrequency -= Time.deltaTime * 10000.0f * transitionTime;
+                    }
+                    else
+                    {
+                        lowpass.cutoffFrequency = cutofffreq;
+                    }
                 }
                 else
                 {
-                    lowpass.cutoffFrequency = fqcWhenOccluded;
-                }
-            }
-            else
-            {
-                if(lowpass.cutoffFrequency < 20000.0f)
-                {
-                    lowpass.cutoffFrequency += Time.deltaTime*10000.0f*transitionTime;
-                }
-                else
-                {
-                    lowpass.cutoffFrequency = 20000.0f;
+                    if (lowpass.cutoffFrequency < 20000.0f)
+                    {
+                        lowpass.cutoffFrequency += Time.deltaTime * 10000.0f * transitionTime;
+                    }
+                    else
+                    {
+                        lowpass.cutoffFrequency = 20000.0f;
+                    }
                 }
             }
         }

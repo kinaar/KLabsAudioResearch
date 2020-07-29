@@ -554,8 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb8452c2592a1a49a1e24ba6cad46c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_audioMixer: {fileID: -2894626614072739350, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-    type: 2}
   charaAudioClipsArray:
   - _playOnTrigger: 0
     soundToTrig:
@@ -564,6 +562,8 @@ MonoBehaviour:
     _volume: 0
     _randomPitch: 2
     bypassReverb: 0
+    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+      type: 2}
   - _playOnTrigger: 3
     soundToTrig:
     - {fileID: 8300000, guid: a8f1e211a0c940245b3aa84e8ac4f388, type: 3}
@@ -573,6 +573,8 @@ MonoBehaviour:
     _volume: -12
     _randomPitch: 15
     bypassReverb: 1
+    m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+      type: 2}
   - _playOnTrigger: 2
     soundToTrig:
     - {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
@@ -581,6 +583,8 @@ MonoBehaviour:
     _volume: -12
     _randomPitch: 5
     bypassReverb: 1
+    m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+      type: 2}
   - _playOnTrigger: 1
     soundToTrig:
     - {fileID: 8300000, guid: c2168e9eae7b32840a8e01102073338b, type: 3}
@@ -588,6 +592,17 @@ MonoBehaviour:
     _volume: 3
     _randomPitch: 1
     bypassReverb: 0
+    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+      type: 2}
+  - _playOnTrigger: 3
+    soundToTrig:
+    - {fileID: 8300000, guid: c2168e9eae7b32840a8e01102073338b, type: 3}
+    customKey: h
+    _volume: 3
+    _randomPitch: 1
+    bypassReverb: 0
+    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+      type: 2}
 --- !u!1 &374137085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,6 +2384,7 @@ MonoBehaviour:
   m_bedVolume: -3
   m_muteBed: 0
   randomSounds: []
+  spatializeRandomSource: 0
   m_randomVolume: 0
   m_muteRandom: 0
   timeBetweenInst: 5
@@ -2482,7 +2498,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
   - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
   - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
-  m_randomVolume: -48
+  spatializeRandomSource: 1
+  m_randomVolume: -3
   m_muteRandom: 0
   timeBetweenInst: 5
   timeRandom: 2
@@ -2637,6 +2654,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
   - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
   - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
+  spatializeRandomSource: 0
   m_randomVolume: -23
   m_muteRandom: 0
   timeBetweenInst: 3
@@ -2921,7 +2939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listener: {fileID: 373719228}
-  fqcWhenOccluded: 3000
+  fqcWhenOccluded: 4000
   transitionTime: 5
 --- !u!82 &1677240993
 AudioSource:
@@ -2936,7 +2954,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: f81b6ad0d2663584493fe5c9227bf701, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2945,9 +2963,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 3
-  MaxDistance: 10
+  MaxDistance: 15
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2955,23 +2973,23 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.375
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -3.3521738
+      outSlope: -3.3521738
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.33134326
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.0093215965
+      outSlope: -0.0093215965
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 1
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -3590,6 +3608,7 @@ MonoBehaviour:
   m_bedVolume: -3
   m_muteBed: 0
   randomSounds: []
+  spatializeRandomSource: 0
   m_randomVolume: 0
   m_muteRandom: 0
   timeBetweenInst: 5

@@ -41,7 +41,7 @@ public class AmbienceObject : MonoBehaviour
 
     [Header("Random Settings")]
     public AudioClip[] randomSounds; // Random audioclips
-    
+    public bool spatializeRandomSource = false;
     [Range(-48.0f, 3.0f)] // Random volume
     [SerializeField]
     private float m_randomVolume = 0.0f;
@@ -61,9 +61,11 @@ public class AmbienceObject : MonoBehaviour
 
     //// _Private Variables_ ////
 
-    private bool fadeIn = false, fadeOut = false, done = true, generalMute = false;
+    private bool fadeIn = false, fadeOut = false, done = true, generalMute = false, objectCreated = false;
     private float generalVolume = 0.0f, bedVol, bedVolCopy = 0.0f, randVol, randVolCopy = 0.0f; /// Volume Floats
     private float chronometer = 0.0f, randTime;
+    private AudioSource spatialSoundSource;
+    private GameObject child;
 
     void Start()
     {
@@ -110,11 +112,22 @@ public class AmbienceObject : MonoBehaviour
 
             if (chronometer >= randTime && sourceBed.isPlaying && randomSounds.Length > 0)
             {
-                randomSoundPicking();
+                if(spatializeRandomSource)
+                {
+                    if (objectCreated == false)
+                    {
+                        child = new GameObject("Player");
+                        spatialSoundSource = child.AddComponent<AudioSource>();
+                        objectCreated = true;
+                    }
+                    spatialiseSoundSpawn(child);
+                }
+                else
+                {
+                    randomSoundPicking();
+                }
             }
-
         }
-
     }
 
     void OnTriggerEnter(Collider collider)
@@ -217,6 +230,22 @@ public class AmbienceObject : MonoBehaviour
         sourceRand.panStereo = panRandom;
         sourceRand.volume = volRandom;
 
+        chronometer = 0.0f;
+    }
+
+    void spatialiseSoundSpawn(GameObject child)
+    {
+
+
+        int spatialRand = Random.Range(0, 30);
+        child.transform.position = new Vector3(gameObject.transform.position.x + spatialRand, 1.5f, transform.position.z + spatialRand);
+        child.transform.parent = gameObject.transform;
+        Debug.Log("New");
+        int randNb = Random.Range(0, randomSounds.Length);
+        //spatialSoundSource.clip = randomSounds[randNb];
+        spatialSoundSource.spatialBlend = 1.0f;
+        spatialSoundSource.volume = Mathf.Pow(10, m_randomVolume/20.0f);
+        spatialSoundSource.PlayOneShot(randomSounds[randNb]);
         chronometer = 0.0f;
     }
 

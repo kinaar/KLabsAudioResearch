@@ -7,7 +7,7 @@ using UnityEditor;
 public class CharacterAudioManager : MonoBehaviour
 {
     private AudioSource[] audioSources = new AudioSource[10];
-    public AudioMixerGroup m_audioMixer;
+    //public AudioMixerGroup m_audioMixer;
 
     [System.Serializable]
     public class CharaAudioClips
@@ -24,6 +24,7 @@ public class CharacterAudioManager : MonoBehaviour
         public float _randomPitch;
 
         public bool bypassReverb = true;
+        public AudioMixerGroup m_audioMixer;
     }
     public CharaAudioClips[] charaAudioClipsArray;
 
@@ -35,7 +36,7 @@ public class CharacterAudioManager : MonoBehaviour
             child.transform.parent = gameObject.transform;
             audioSources[i] = child.AddComponent<AudioSource>();
             audioSources[i].clip = charaAudioClipsArray[i].soundToTrig[0];
-            audioSources[i].outputAudioMixerGroup = m_audioMixer;
+            audioSources[i].outputAudioMixerGroup = charaAudioClipsArray[i].m_audioMixer;
         }
     }
 
@@ -94,6 +95,8 @@ public class CharacterAudioManager : MonoBehaviour
         audioSources[i].pitch = 1 + (pitchRand * (charaAudioClipsArray[i]._randomPitch / 100.0f));
         audioSources[i].PlayOneShot(charaAudioClipsArray[i].soundToTrig[audioRand]);
         audioSources[i].bypassReverbZones = charaAudioClipsArray[i].bypassReverb;
+        audioSources[i].bypassEffects = charaAudioClipsArray[i].bypassReverb;
+        audioSources[i].bypassListenerEffects = charaAudioClipsArray[i].bypassReverb;
         audioSources[i].volume = Mathf.Pow(10, charaAudioClipsArray[i]._volume / 20.0f);
         Debug.Log("trig");
     }
