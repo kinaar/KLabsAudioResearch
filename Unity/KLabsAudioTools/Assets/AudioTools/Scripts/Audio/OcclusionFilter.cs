@@ -12,6 +12,12 @@ public class OcclusionFilter : MonoBehaviour
     public float transitionTime = 1.0f;
     private AudioSource audioSource;
     private float maxDistance = 0.0f;
+    float audioSourceCopy;
+
+    void Start()
+    {
+        audioSourceCopy = gameObject.GetComponent<AudioSource>().volume;
+    }
 
     private void Update()
     {
@@ -33,6 +39,7 @@ public class OcclusionFilter : MonoBehaviour
                 AudioLowPassFilter lowpass = gameObject.GetComponent<AudioLowPassFilter>();
 
                 var rig = hit.collider.gameObject.tag;
+                //Debug.Log(hit.point);
 
                 float cutofffreq = fqcWhenOccluded;
 
@@ -48,9 +55,14 @@ public class OcclusionFilter : MonoBehaviour
                     {
                         lowpass.cutoffFrequency = cutofffreq;
                     }
+
+                    audioSource.volume = Mathf.Pow(10, -30.0f / 20.0f);
+                    Debug.Log(audioSource.volume);
                 }
                 else
                 {
+                    audioSource.volume = Mathf.Pow(10, -18.0f / 20.0f);
+
                     if (lowpass.cutoffFrequency < 20000.0f)
                     {
                         lowpass.cutoffFrequency += Time.deltaTime * 10000.0f * transitionTime;

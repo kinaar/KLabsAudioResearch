@@ -23,7 +23,8 @@ public class AmbienceObject : MonoBehaviour
     public float m_fadeOutTime = 1.0f; // Fade out time
     AmbienceManager managerScript; // Get Components from the AmbienceManager
     
-    AudioSource sourceBed; // Bed audio source
+    [HideInInspector]
+    public AudioSource sourceBed; // Bed audio source
     AudioSource sourceRand; // Random audio Source
 
     //// _Bed Audio Settings_ ////
@@ -36,27 +37,29 @@ public class AmbienceObject : MonoBehaviour
     private float m_bedVolume = 0.0f;
     
     public bool m_muteBed = false; // Bed mute
-    
+
     //// _Random Settings_ ////
 
     [Header("Random Settings")]
     public AudioClip[] randomSounds; // Random audioclips
     public bool spatializeRandomSource = false;
+
     [Range(-48.0f, 3.0f)] // Random volume
     [SerializeField]
-    private float m_randomVolume = 0.0f;
-    
+    public float m_randomVolume = 0.0f;
+
     public bool m_muteRandom = false; // Random mute
     public float timeBetweenInst = 5.0f; // Time (in seconds) to wait between each instantiation
     public float timeRandom = 1.0f; // Random time (in seconds) added or removed from the instantiation time
-    
+
     [Range(0, 100)] // Pan randomization (in percents)
     [SerializeField]
-    private float panRandomization;
-    
+    public float panRandomization;
+
     [Range(0, 100)] // Volume randomization (in percents)
     [SerializeField]
-    private float volRandomization;
+    public float volRandomization;
+    
 
 
     //// _Private Variables_ ////
@@ -64,7 +67,7 @@ public class AmbienceObject : MonoBehaviour
     private bool fadeIn = false, fadeOut = false, done = true, generalMute = false, objectCreated = false;
     private float generalVolume = 0.0f, bedVol, bedVolCopy = 0.0f, randVol, randVolCopy = 0.0f; /// Volume Floats
     private float chronometer = 0.0f, randTime;
-    private AudioSource spatialSoundSource;
+    AudioSource spatialSoundSource;
     private GameObject child;
 
     void Start()
@@ -81,28 +84,30 @@ public class AmbienceObject : MonoBehaviour
 
         if (sourceBed != null)
         {
-            if(sourceRand != null)
+            if (sourceRand != null)
             {
                 chronometer += Time.deltaTime;
                 randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
             }
 
-            generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol)/20.0f);
-            bedVol = Mathf.Pow(10, m_bedVolume/20.0f);
-            randVol = Mathf.Pow(10, m_randomVolume/20.0f);
+            generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol) / 20.0f);
+            bedVol = Mathf.Pow(10, m_bedVolume / 20.0f);
+            randVol = Mathf.Pow(10, m_randomVolume / 20.0f);
             generalMute = managerScript.mute;
 
             fadingIn();
             fadingOut();
 
-            if (generalMute != true)
+            /*if (generalMute != true)
             {
                 if (m_muteGeneral != true)
                 {
                     muted(m_muteBed, sourceBed);
                 }
                 else muted(m_muteGeneral, sourceBed);
-            }
+            }*/
+
+            muted(m_muteBed, sourceBed);
 
             if (fadeOut == false && fadeIn == false && done == true)
             {
@@ -112,7 +117,7 @@ public class AmbienceObject : MonoBehaviour
 
             if (chronometer >= randTime && sourceBed.isPlaying && randomSounds.Length > 0)
             {
-                if(spatializeRandomSource)
+                if (spatializeRandomSource)
                 {
                     if (objectCreated == false)
                     {
@@ -221,6 +226,7 @@ public class AmbienceObject : MonoBehaviour
     {
         int randNb = Random.Range(0, randomSounds.Length);
         sourceRand.clip = randomSounds[randNb];
+        muted(m_muteRandom, sourceRand);
         sourceRand.Play();
 
         randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
@@ -235,8 +241,6 @@ public class AmbienceObject : MonoBehaviour
 
     void spatialiseSoundSpawn(GameObject child)
     {
-
-
         int spatialRand = Random.Range(0, 30);
         child.transform.position = new Vector3(gameObject.transform.position.x + spatialRand, 1.5f, transform.position.z + spatialRand);
         child.transform.parent = gameObject.transform;
@@ -245,6 +249,7 @@ public class AmbienceObject : MonoBehaviour
         //spatialSoundSource.clip = randomSounds[randNb];
         spatialSoundSource.spatialBlend = 1.0f;
         spatialSoundSource.volume = Mathf.Pow(10, m_randomVolume/20.0f);
+        muted(m_muteRandom, spatialSoundSource);
         spatialSoundSource.PlayOneShot(randomSounds[randNb]);
         chronometer = 0.0f;
     }
