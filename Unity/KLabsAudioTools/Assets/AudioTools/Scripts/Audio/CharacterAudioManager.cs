@@ -73,7 +73,7 @@ public class CharacterAudioManager : MonoBehaviour
             {
                 if (charaAudioClipsArray[i]._playOnTrigger == CharaAudioClips.playOn.custom)
                 {
-                    if (Input.GetKeyDown(charaAudioClipsArray[i].customKey))
+                    if (Input.GetKeyDown(charaAudioClipsArray[i].customKey) || Input.GetButtonDown("Fart"))
                     {
                         playSound(i);
                     }

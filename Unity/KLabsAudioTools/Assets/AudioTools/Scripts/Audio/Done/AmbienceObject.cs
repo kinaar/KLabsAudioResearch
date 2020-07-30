@@ -248,6 +248,7 @@ public class AmbienceObject : MonoBehaviour
         int randNb = Random.Range(0, randomSounds.Length);
         //spatialSoundSource.clip = randomSounds[randNb];
         spatialSoundSource.spatialBlend = 1.0f;
+        spatialSoundSource.minDistance = 10.0f;
         spatialSoundSource.volume = Mathf.Pow(10, m_randomVolume/20.0f);
         muted(m_muteRandom, spatialSoundSource);
         spatialSoundSource.PlayOneShot(randomSounds[randNb]);
