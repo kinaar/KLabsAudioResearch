@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Utility;
 using UnityEditor;
 
 public class CharacterAudioManager : MonoBehaviour
@@ -43,7 +45,7 @@ public class CharacterAudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             for (int i = 0; i < charaAudioClipsArray.Length; i++)
             {
@@ -54,7 +56,7 @@ public class CharacterAudioManager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire2"))
         {
             for (int i = 0; i < charaAudioClipsArray.Length; i++)
             {
@@ -80,7 +82,7 @@ public class CharacterAudioManager : MonoBehaviour
 
             if (charaAudioClipsArray[i]._playOnTrigger == CharaAudioClips.playOn.spacebar)
             {
-                if (Input.GetKeyDown("space"))
+                if (Input.GetButtonDown("Jump"))
                 {
                     playSound(i);
                 }
