@@ -357,3 +357,19 @@ InputManager:
     type: 2
     axis: 4
     joyNum: 0
+  - serializedVersion: 3
+    m_Name: Fart
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 3
+    altNegativeButton: 
+    altPositiveButton: f
+    gravity: 1000
+    dead: 0
+    sensitivity: 1000
+    snap: 0
+    invert: 1
+    type: 0
+    axis: 4
+    joyNum: 0
