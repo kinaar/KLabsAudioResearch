@@ -48,10 +48,12 @@
      <Compile Include="Assets\AudioTools\Scripts\Audio\AmbianceSequencer.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\AmbienceRandomLayer.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\CharacterAudioManager.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\CharacterAudioManager_old.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Delay_KLabs.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Done\AmbienceManager.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Done\AmbienceObject.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\GlobalAudioManager.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\KlabsATInitialize.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Music\MusicManager.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Music\MusicObject.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Music\NewTest.cs" />

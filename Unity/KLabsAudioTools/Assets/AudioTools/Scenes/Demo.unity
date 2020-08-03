@@ -893,7 +893,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1964124275}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &373719233
+--- !u!114 &373719229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -905,44 +905,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb8452c2592a1a49a1e24ba6cad46c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaAudioClipsArray:
-  - _playOnTrigger: 0
-    soundToTrig:
-    - {fileID: 8300000, guid: c50b31a0849e6584bbfc0057862614c8, type: 3}
-    customKey: 
-    _volume: 3
-    _randomPitch: 2
-    bypassReverb: 0
-    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 3
-    soundToTrig:
-    - {fileID: 8300000, guid: a8f1e211a0c940245b3aa84e8ac4f388, type: 3}
-    customKey: f
-    _volume: -12
-    _randomPitch: 15
-    bypassReverb: 1
-    m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 2
-    soundToTrig:
-    - {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
-    - {fileID: 8300000, guid: ac68a57469fb5d441af0ef56fc3a95b7, type: 3}
-    customKey: 
-    _volume: -12
-    _randomPitch: 5
-    bypassReverb: 1
-    m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 1
-    soundToTrig:
-    - {fileID: 8300000, guid: c2168e9eae7b32840a8e01102073338b, type: 3}
-    customKey: 
-    _volume: 3
-    _randomPitch: 1
-    bypassReverb: 0
-    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
+  m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
+    type: 2}
+  _volume: 0
+  mute: 0
+  m_triggerChoice: 0
+  m_audioClips:
+  - {fileID: 8300000, guid: c50b31a0849e6584bbfc0057862614c8, type: 3}
+  customKey: f
+  _randomPitch: 0
+  bypassReverb: 1
+  m_audioSource: {fileID: 0}
 --- !u!4 &373992859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: e5b63a4f923424448b71b90ebe29c894,

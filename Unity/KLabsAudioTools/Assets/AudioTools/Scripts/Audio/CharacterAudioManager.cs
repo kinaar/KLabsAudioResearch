@@ -3,103 +3,92 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityStandardAssets.CrossPlatformInput;
-using UnityStandardAssets.Utility;
-using UnityEditor;
 
+[AddComponentMenu("KLabsAudioTools/CharacterAudioManager")]
 public class CharacterAudioManager : MonoBehaviour
 {
-    private AudioSource[] audioSources = new AudioSource[10];
-    //public AudioMixerGroup m_audioMixer;
+    public AudioMixerGroup m_audioMixer;
+    [Range(-48.0f, 3.0f)]
+    public float _volume;
+    public bool mute = false;
 
-    [System.Serializable]
-    public class CharaAudioClips
-    {
-        public enum playOn { fire1, fire2, spacebar, custom }
-        public playOn _playOnTrigger;
-        public AudioClip[] soundToTrig;
-        public string customKey;
+    public playOn m_triggerChoice;
+    public enum playOn { fire1, fire2, spacebar, custom }
+    public AudioClip[] m_audioClips;
+    public string customKey;
 
-        [Range (-48.0f, 3.0f)]
-        public float _volume;
+    public float _randomPitch;
 
-        [Range (0.0f, 100.0f)]
-        public float _randomPitch;
+    public bool bypassReverb = true;
 
-        public bool bypassReverb = true;
-        public AudioMixerGroup m_audioMixer;
-    }
-    public CharaAudioClips[] charaAudioClipsArray;
+
+    [HideInInspector]
+    public AudioSource m_audioSource;
 
     void Start()
     {
-        for (int i = 0; i < charaAudioClipsArray.Length; i++)
-        {
-            GameObject child = new GameObject("Player");
-            child.transform.parent = gameObject.transform;
-            audioSources[i] = child.AddComponent<AudioSource>();
-            audioSources[i].clip = charaAudioClipsArray[i].soundToTrig[0];
-            audioSources[i].outputAudioMixerGroup = charaAudioClipsArray[i].m_audioMixer;
-        }
+        GameObject child = new GameObject("Player");
+        child.transform.parent = gameObject.transform;
+        m_audioSource = child.AddComponent<AudioSource>();
+        //m_audioSource.clip = m_audioClips[0];
+        m_audioSource.outputAudioMixerGroup = m_audioMixer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (m_audioClips.Length != 0)
         {
-            for (int i = 0; i < charaAudioClipsArray.Length; i++)
+            if (Input.GetButtonDown("Fire1"))
             {
-                if (charaAudioClipsArray[i]._playOnTrigger == CharaAudioClips.playOn.fire1)
+                if (m_triggerChoice == playOn.fire1)
                 {
-                    playSound(i);
+                    playSound();
                 }
             }
-        }
 
-        if (Input.GetButtonDown("Fire2"))
-        {
-            for (int i = 0; i < charaAudioClipsArray.Length; i++)
+            if (Input.GetButtonDown("Fire2"))
             {
-                if (charaAudioClipsArray[i]._playOnTrigger == CharaAudioClips.playOn.fire2)
+
+                if (m_triggerChoice == playOn.fire2)
                 {
-                    playSound(i);
+                    playSound();
                 }
             }
-        }
 
-        for (int i = 0; i < charaAudioClipsArray.Length; i++)
-        {
-            if (charaAudioClipsArray[i].customKey != "")
+            if (customKey != "")
             {
-                if (charaAudioClipsArray[i]._playOnTrigger == CharaAudioClips.playOn.custom)
+                if (m_triggerChoice == playOn.custom)
                 {
-                    if (Input.GetKeyDown(charaAudioClipsArray[i].customKey) || Input.GetButtonDown("Fart"))
+                    if (Input.GetKeyDown(customKey) || Input.GetButtonDown("Fart"))
                     {
-                        playSound(i);
+                        playSound();
                     }
                 }
             }
 
-            if (charaAudioClipsArray[i]._playOnTrigger == CharaAudioClips.playOn.spacebar)
+            if (m_triggerChoice == playOn.spacebar)
             {
                 if (Input.GetButtonDown("Jump"))
                 {
-                    playSound(i);
+                    playSound();
                 }
             }
         }
+        else Debug.Log("Sound Clip(s) Are Not Assigned");
     }
 
-    void playSound(int i)
+    void playSound()
     {
         float pitchRand = Random.Range(-1.0f, 1.0f);
-        int audioRand = Random.Range(0, charaAudioClipsArray[i].soundToTrig.Length);
-        audioSources[i].pitch = 1 + (pitchRand * (charaAudioClipsArray[i]._randomPitch / 100.0f));
-        audioSources[i].PlayOneShot(charaAudioClipsArray[i].soundToTrig[audioRand]);
-        audioSources[i].bypassReverbZones = charaAudioClipsArray[i].bypassReverb;
-        audioSources[i].bypassEffects = charaAudioClipsArray[i].bypassReverb;
-        audioSources[i].bypassListenerEffects = charaAudioClipsArray[i].bypassReverb;
-        audioSources[i].volume = Mathf.Pow(10, charaAudioClipsArray[i]._volume / 20.0f);
+        int audioRand = Random.Range(0, m_audioClips.Length);
+        m_audioSource.pitch = 1 + (pitchRand * _randomPitch / 100.0f);
+        m_audioSource.PlayOneShot(m_audioClips[audioRand]);
+        m_audioSource.bypassReverbZones = bypassReverb;
+        m_audioSource.bypassEffects = bypassReverb;
+        m_audioSource.bypassListenerEffects = bypassReverb;
+        m_audioSource.volume = Mathf.Pow(10, _volume / 20.0f);
+        m_audioSource.mute = mute;
         Debug.Log("trig");
     }
 }

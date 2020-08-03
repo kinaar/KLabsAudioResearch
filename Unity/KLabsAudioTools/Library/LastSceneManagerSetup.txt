@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/AudioTools/Scenes/drum_machine.unity
+- path: Assets/AudioTools/Scenes/Demo.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
