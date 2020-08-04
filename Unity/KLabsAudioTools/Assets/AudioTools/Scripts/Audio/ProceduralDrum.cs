@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+[RequireComponent(typeof(AudioSource))]
 public class ProceduralDrum : MonoBehaviour
 {
 
@@ -22,7 +23,7 @@ public class ProceduralDrum : MonoBehaviour
 
         for(int i = 0; i < data.Length; i++)
         {
-            data[i] = masterVolume*0.5f * (float)(rand.NextDouble() * 2.0 - 1.0);
+            data[i] = (float)(rand.NextDouble() * 2.0 - 1.0) * 0.5f;//*masterVolume*0.5f;
         }
     }
 
@@ -36,7 +37,7 @@ public class ProceduralDrum : MonoBehaviour
 
         if(triggered)
         {
-            adsr();
+            //adsr();
         }
         else
         {

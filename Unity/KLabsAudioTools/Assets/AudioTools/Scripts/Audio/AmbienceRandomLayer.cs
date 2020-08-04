@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("KLabsAudioTools/Ambience/AmbienceRandomLayer")]
 [RequireComponent(typeof(AmbienceObject))]
 public class AmbienceRandomLayer : MonoBehaviour
 {
@@ -20,25 +21,27 @@ public class AmbienceRandomLayer : MonoBehaviour
 
     //// _Random Settings_ ////
 
-    [Header("Random Settings")]
-    public AudioClip[] randomSounds; // Random audioclips
-    public bool spatializeRandomSource = false;
+    //[Header("Random Settings")]
+    public AudioClip[] m_randomClips; // Random audioclips
 
-    [Range(-48.0f, 3.0f)] // Random volume
-    [SerializeField]
+    public bool m_spatialize = false;
+    public Vector3 m_randomZoneMin = new Vector3(5.0f, 0.5f, 5.0f);
+    public Vector3 m_randomZoneMax = new Vector3(20.0f, 1.5f, 20.0f);
+    public float m_minAttenuationDistance = 1.0f;
+    public float m_maxAttenuationDistance = 100.0f;
+    public float m_spread = 0.0f;
+    public m_volumeRolloff m_Rolloff;
+    public enum m_volumeRolloff { logarithmicRolloff, linearRolloff };
+
     public float m_randomVolume = 0.0f;
-
     public bool m_muteRandom = false; // Random mute
-    public float timeBetweenInst = 5.0f; // Time (in seconds) to wait between each instantiation
-    public float timeRandom = 1.0f; // Random time (in seconds) added or removed from the instantiation time
 
-    [Range(0, 100)] // Pan randomization (in percents)
-    [SerializeField]
-    public float panRandomization;
+    public float m_triggerTime = 5.0f; // Time (in seconds) to wait between each instantiation
+    public float m_randomTime = 1.0f; // Random time (in seconds) added or removed from the instantiation time
 
-    [Range(0, 100)] // Volume randomization (in percents)
-    [SerializeField]
-    public float volRandomization;
+    public float m_panRandomization;
+
+    public float m_volRandomization;
     
 
 
@@ -69,7 +72,7 @@ public class AmbienceRandomLayer : MonoBehaviour
         if (sourceRand != null)
         {
             chronometer += Time.deltaTime;
-            randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
+            randTime = Random.Range(-1.0f, 1.0f) + m_triggerTime;
         }
 
         //generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol) / 20.0f);
@@ -86,9 +89,9 @@ public class AmbienceRandomLayer : MonoBehaviour
         }
 
 
-        if (chronometer >= randTime && playing && randomSounds.Length > 0)
+        if (chronometer >= randTime && playing && m_randomClips.Length > 0)
         {
-            if (spatializeRandomSource)
+            if (m_spatialize)
             {
                 if (objectCreated == false)
                 {
@@ -184,13 +187,13 @@ public class AmbienceRandomLayer : MonoBehaviour
 
     void randomSoundPicking()
     {
-        int randNb = Random.Range(0, randomSounds.Length);
-        sourceRand.clip = randomSounds[randNb];
+        int randNb = Random.Range(0, m_randomClips.Length);
+        sourceRand.clip = m_randomClips[randNb];
         sourceRand.Play();
 
-        randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
+        randTime = Random.Range(-1.0f, 1.0f) + m_triggerTime;
 
-        float panRandom = Random.Range(-1.0f, 1.0f) * (panRandomization / 100);
+        float panRandom = Random.Range(-1.0f, 1.0f) * (m_panRandomization / 100);
         float volRandom = randVol - (Random.Range(0.0f, 1.0f) / 100);
         sourceRand.panStereo = panRandom;
         sourceRand.volume = volRandom;
@@ -202,15 +205,40 @@ public class AmbienceRandomLayer : MonoBehaviour
     {
 
 
-        int spatialRand = Random.Range(0, 30);
-        child.transform.position = new Vector3(gameObject.transform.position.x + spatialRand, 1.5f, transform.position.z + spatialRand);
+        float spatialRandX = Random.Range(m_randomZoneMin.x, m_randomZoneMax.x);
+        float spatialRandY = Random.Range(m_randomZoneMin.y, m_randomZoneMax.y);
+        float spatialRandZ = Random.Range(m_randomZoneMin.z, m_randomZoneMax.z);
+        int randomSign = Random.Range(0,1);
+
+        if(randomSign == 0)
+        {
+            child.transform.position = new Vector3(gameObject.transform.position.x + spatialRandX, spatialRandY, transform.position.z + spatialRandZ);
+        }
+        else
+        {
+            child.transform.position = new Vector3(gameObject.transform.position.x - spatialRandX, spatialRandY, transform.position.z - spatialRandZ);
+        }
+
         child.transform.parent = gameObject.transform;
         Debug.Log("New");
-        int randNb = Random.Range(0, randomSounds.Length);
-        //spatialSoundSource.clip = randomSounds[randNb];
+        int randNb = Random.Range(0, m_randomClips.Length);
+        //spatialSoundSource.clip = m_randomClips[randNb];
         spatialSoundSource.spatialBlend = 1.0f;
+        spatialSoundSource.minDistance = m_minAttenuationDistance;
+        spatialSoundSource.maxDistance = m_maxAttenuationDistance;
+        spatialSoundSource.spread = m_spread;
+
+        if(m_Rolloff == m_volumeRolloff.logarithmicRolloff)
+        {
+            spatialSoundSource.rolloffMode = AudioRolloffMode.Logarithmic;
+        }
+        else if(m_Rolloff == m_volumeRolloff.linearRolloff)
+        {
+            spatialSoundSource.rolloffMode = AudioRolloffMode.Linear;
+        }
+
         spatialSoundSource.volume = Mathf.Pow(10, m_randomVolume/20.0f);
-        spatialSoundSource.PlayOneShot(randomSounds[randNb]);
+        spatialSoundSource.PlayOneShot(m_randomClips[randNb]);
         chronometer = 0.0f;
     }
 

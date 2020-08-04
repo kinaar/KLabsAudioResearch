@@ -9,17 +9,17 @@ public class CharacterAudioManager : MonoBehaviour
 {
     public AudioMixerGroup m_audioMixer;
     [Range(-48.0f, 3.0f)]
-    public float _volume;
-    public bool mute = false;
+    public float m_volume;
+    public bool m_mute = false;
 
     public playOn m_triggerChoice;
     public enum playOn { fire1, fire2, spacebar, custom }
     public AudioClip[] m_audioClips;
-    public string customKey;
+    public string m_customKey;
 
-    public float _randomPitch;
+    public float m_randomPitch;
 
-    public bool bypassReverb = true;
+    //public bool bypassReverb = true;
 
 
     [HideInInspector]
@@ -56,11 +56,11 @@ public class CharacterAudioManager : MonoBehaviour
                 }
             }
 
-            if (customKey != "")
+            if (m_customKey != "")
             {
                 if (m_triggerChoice == playOn.custom)
                 {
-                    if (Input.GetKeyDown(customKey) || Input.GetButtonDown("Fart"))
+                    if (Input.GetKeyDown(m_customKey) || Input.GetButtonDown(m_customKey))
                     {
                         playSound();
                     }
@@ -75,20 +75,19 @@ public class CharacterAudioManager : MonoBehaviour
                 }
             }
         }
-        else Debug.Log("Sound Clip(s) Are Not Assigned");
+        else Debug.Log("AudioClip(s) Are Not Assigned");
     }
 
     void playSound()
     {
         float pitchRand = Random.Range(-1.0f, 1.0f);
         int audioRand = Random.Range(0, m_audioClips.Length);
-        m_audioSource.pitch = 1 + (pitchRand * _randomPitch / 100.0f);
+        m_audioSource.pitch = 1 + (pitchRand * m_randomPitch / 100.0f);
         m_audioSource.PlayOneShot(m_audioClips[audioRand]);
-        m_audioSource.bypassReverbZones = bypassReverb;
-        m_audioSource.bypassEffects = bypassReverb;
-        m_audioSource.bypassListenerEffects = bypassReverb;
-        m_audioSource.volume = Mathf.Pow(10, _volume / 20.0f);
-        m_audioSource.mute = mute;
-        Debug.Log("trig");
+        //m_audioSource.bypassReverbZones = bypassReverb;
+        //m_audioSource.bypassEffects = bypassReverb;
+        //m_audioSource.bypassListenerEffects = bypassReverb;
+        m_audioSource.volume = Mathf.Pow(10, m_volume / 20.0f);
+        m_audioSource.mute = m_mute;
     }
 }

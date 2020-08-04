@@ -19,12 +19,12 @@ public class CharacterEditor : Editor
     void OnEnable()
     {
         m_audioMixer = serializedObject.FindProperty("m_audioMixer");
-        m_audioVolume = serializedObject.FindProperty("_volume");
-        m_mute = serializedObject.FindProperty("mute");
+        m_audioVolume = serializedObject.FindProperty("m_volume");
+        m_mute = serializedObject.FindProperty("m_mute");
         m_triggerChoice = serializedObject.FindProperty("m_triggerChoice");
         m_audioClips = serializedObject.FindProperty("m_audioClips");
-        m_customKey = serializedObject.FindProperty("customKey");
-        m_randomPitch = serializedObject.FindProperty("_randomPitch");
+        m_customKey = serializedObject.FindProperty("m_customKey");
+        m_randomPitch = serializedObject.FindProperty("m_randomPitch");
     }
 
     public override void OnInspectorGUI()
@@ -36,7 +36,7 @@ public class CharacterEditor : Editor
         EditorGUILayout.PropertyField(m_audioMixer);
         EditorGUILayout.Slider(m_audioVolume, -48.0f, 0.0f);
         EditorGUILayout.PropertyField(m_mute);
-        EditorGUILayout.Space();
+        //EditorGUILayout.Space();
         EditorGUILayout.PropertyField(m_audioClips);
         EditorGUILayout.PropertyField(m_triggerChoice);
 

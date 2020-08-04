@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+[AddComponentMenu("KLabsAudioTools/ReverbZone")]
 public class ReverbZone : MonoBehaviour
 {
     

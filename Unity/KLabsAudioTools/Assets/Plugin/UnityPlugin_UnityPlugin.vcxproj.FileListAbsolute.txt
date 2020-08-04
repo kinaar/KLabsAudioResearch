@@ -1,0 +1,2 @@
+C:\Users\guerr\Documents\AudioProgramming\DSP\UnityPlugin\Builds\VisualStudio2019\x64\Debug\Unity Plugin\audioplugin_UnityPlugin.dll
+C:\Users\guerr\Documents\AudioProgramming\DSP\UnityPlugin\Builds\VisualStudio2019\x64\Debug\Unity Plugin\audioplugin_UnityPlugin.pdb
