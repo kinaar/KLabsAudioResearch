@@ -2548,7 +2548,6 @@ GameObject:
   - component: {fileID: 1404775853}
   - component: {fileID: 1404775852}
   - component: {fileID: 1404775856}
-  - component: {fileID: 1404775858}
   - component: {fileID: 1404775857}
   m_Layer: 0
   m_Name: Exterior
@@ -2592,14 +2591,14 @@ MonoBehaviour:
   m_fadeOutTime: 1
   sourceBed: {fileID: 0}
   m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
-  m_bedVolume: 0
+  m_bedVolume: -3
   m_muteBed: 0
   randomSounds:
   - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
   - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
   - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
   spatializeRandomSource: 1
-  m_randomVolume: -5
+  m_randomVolume: -12
   m_muteRandom: 0
   timeBetweenInst: 9
   timeRandom: 3
@@ -2677,20 +2676,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090b01ba03a283c4e89c77ec43d47671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_randomClips: []
-  m_spatialize: 0
-  m_randomZoneMin: {x: 0, y: 0.5, z: 0}
-  m_randomZoneMax: {x: 10, y: 1.5, z: 10}
+  m_randomClips:
+  - {fileID: 8300000, guid: 7916ca480e544bd4aad59aa852fa2a91, type: 3}
+  - {fileID: 8300000, guid: e870c160f8c2a744c8659763e9898f7b, type: 3}
+  m_spatialize: 1
+  m_randomZoneMin: {x: 5, y: 0.5, z: 5}
+  m_randomZoneMax: {x: 50, y: 1.5, z: 50}
   m_minAttenuationDistance: 1
   m_maxAttenuationDistance: 100
   m_spread: 0
-  m_Rolloff: 0
-  m_randomVolume: -19
+  m_Rolloff: 1
+  m_randomVolume: -6
   m_muteRandom: 0
   m_triggerTime: 5
   m_randomTime: 1
-  m_panRandomization: 0
-  m_volRandomization: 0
+  m_panRandomization: 50
+  m_volRandomization: 10
 --- !u!114 &1404775857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2706,32 +2707,6 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e, type: 2}
   parameterName: reverbSend
   reverbVolume: -3
---- !u!114 &1404775858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404775850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 090b01ba03a283c4e89c77ec43d47671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_randomClips: []
-  m_spatialize: 0
-  m_randomZoneMin: {x: 15, y: 0.5, z: 0}
-  m_randomZoneMax: {x: 10, y: 1.5, z: 10}
-  m_minAttenuationDistance: 1
-  m_maxAttenuationDistance: 100
-  m_spread: 0
-  m_Rolloff: 0
-  m_randomVolume: -7
-  m_muteRandom: 0
-  m_triggerTime: 5
-  m_randomTime: 1
-  m_panRandomization: 0
-  m_volRandomization: 0
 --- !u!1001 &1409077998
 PrefabInstance:
   m_ObjectHideFlags: 0

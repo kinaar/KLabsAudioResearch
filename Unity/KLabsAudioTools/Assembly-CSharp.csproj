@@ -49,7 +49,6 @@
      <Compile Include="Assets\AudioTools\Scripts\Audio\AmbienceRandomLayer.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\AudioFilter.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\CharacterAudioManager.cs" />
-     <Compile Include="Assets\AudioTools\Scripts\Audio\CharacterAudioManager_old.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Delay_KLabs.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Done\AmbienceManager.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\Done\AmbienceObject.cs" />
@@ -61,6 +60,8 @@
      <Compile Include="Assets\AudioTools\Scripts\Audio\Music\UnityExampleMusic.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\MusicBehavior.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\OcclusionFilter.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\Old\AmbienceObject_old.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\Audio\Old\CharacterAudioManager_old.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\ProceduralDrum.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\ReverbZone.cs" />
      <Compile Include="Assets\AudioTools\Scripts\FPSDisplay.cs" />

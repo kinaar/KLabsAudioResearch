@@ -25,7 +25,6 @@ public class AmbienceObject : MonoBehaviour
     
     [HideInInspector]
     public AudioSource sourceBed; // Bed audio source
-    AudioSource sourceRand; // Random audio Source
 
     //// _Bed Audio Settings_ ////
 
@@ -37,30 +36,6 @@ public class AmbienceObject : MonoBehaviour
     private float m_bedVolume = 0.0f;
     
     public bool m_muteBed = false; // Bed mute
-
-    //// _Random Settings_ ////
-
-    [Header("Random Settings")]
-    public AudioClip[] randomSounds; // Random audioclips
-    public bool spatializeRandomSource = false;
-
-    [Range(-48.0f, 3.0f)] // Random volume
-    [SerializeField]
-    public float m_randomVolume = 0.0f;
-
-    public bool m_muteRandom = false; // Random mute
-    public float timeBetweenInst = 5.0f; // Time (in seconds) to wait between each instantiation
-    public float timeRandom = 1.0f; // Random time (in seconds) added or removed from the instantiation time
-
-    [Range(0, 100)] // Pan randomization (in percents)
-    [SerializeField]
-    public float panRandomization;
-
-    [Range(0, 100)] // Volume randomization (in percents)
-    [SerializeField]
-    public float volRandomization;
-    
-
 
     //// _Private Variables_ ////
 
@@ -84,53 +59,19 @@ public class AmbienceObject : MonoBehaviour
 
         if (sourceBed != null)
         {
-            if (sourceRand != null)
-            {
-                chronometer += Time.deltaTime;
-                randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
-            }
 
             generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol) / 20.0f);
             bedVol = Mathf.Pow(10, m_bedVolume / 20.0f);
-            randVol = Mathf.Pow(10, m_randomVolume / 20.0f);
             generalMute = managerScript.mute;
 
             fadingIn();
             fadingOut();
-
-            /*if (generalMute != true)
-            {
-                if (m_muteGeneral != true)
-                {
-                    muted(m_muteBed, sourceBed);
-                }
-                else muted(m_muteGeneral, sourceBed);
-            }*/
 
             muted(m_muteBed, sourceBed);
 
             if (fadeOut == false && fadeIn == false && done == true)
             {
                 setAudioVolume(bedVolCopy, bedVol, sourceBed);
-            }
-
-
-            if (chronometer >= randTime && sourceBed.isPlaying && randomSounds.Length > 0)
-            {
-                if (spatializeRandomSource)
-                {
-                    if (objectCreated == false)
-                    {
-                        child = new GameObject("Player");
-                        spatialSoundSource = child.AddComponent<AudioSource>();
-                        objectCreated = true;
-                    }
-                    spatialiseSoundSpawn(child);
-                }
-                else
-                {
-                    randomSoundPicking();
-                }
             }
         }
     }
@@ -139,8 +80,6 @@ public class AmbienceObject : MonoBehaviour
     {
         sourceBed = ambienceManager.gameObject.AddComponent<AudioSource>();
         sourceBed.outputAudioMixerGroup = m_outputMixerGroup;
-        sourceRand = ambienceManager.gameObject.AddComponent<AudioSource>();
-        sourceRand.outputAudioMixerGroup = m_outputMixerGroup;
 
         if (collider.gameObject.tag == "Player")
         {
@@ -168,7 +107,6 @@ public class AmbienceObject : MonoBehaviour
         if (fadeIn == true && done == false)
             {
                 sourceBed.volume += Time.deltaTime / m_fadeInTime;
-                sourceRand.volume += Time.deltaTime / m_fadeInTime;
                 if (sourceBed.volume >= bedVol)
                 {
                     fadeIn = false;
@@ -178,7 +116,6 @@ public class AmbienceObject : MonoBehaviour
             {
                 sourceBed.volume = bedVol;
                 done = true;
-                sourceRand.volume = randVol;
             }
     }
 
@@ -187,12 +124,10 @@ public class AmbienceObject : MonoBehaviour
         if (fadeOut == true && done == false)
         {
             sourceBed.volume -= Time.deltaTime / m_fadeOutTime;
-            sourceRand.volume -= Time.deltaTime / m_fadeOutTime;
 
             if (sourceBed.volume <= 0.0f)
             {
                 sourceBed.Stop();
-                Destroy(sourceRand);
                 Destroy(sourceBed);
                 fadeOut = false;
                 done = true;
@@ -221,38 +156,4 @@ public class AmbienceObject : MonoBehaviour
             volCopy = volOg;
         }
     }
-
-    void randomSoundPicking()
-    {
-        int randNb = Random.Range(0, randomSounds.Length);
-        sourceRand.clip = randomSounds[randNb];
-        muted(m_muteRandom, sourceRand);
-        sourceRand.Play();
-
-        randTime = Random.Range(-1.0f, 1.0f) + timeBetweenInst;
-
-        float panRandom = Random.Range(-1.0f, 1.0f) * (panRandomization / 100);
-        float volRandom = randVol - (Random.Range(0.0f, 1.0f) / 100);
-        sourceRand.panStereo = panRandom;
-        sourceRand.volume = volRandom;
-
-        chronometer = 0.0f;
-    }
-
-    void spatialiseSoundSpawn(GameObject child)
-    {
-        int spatialRand = Random.Range(0, 30);
-        child.transform.position = new Vector3(gameObject.transform.position.x + spatialRand, 1.5f, transform.position.z + spatialRand);
-        child.transform.parent = gameObject.transform;
-        Debug.Log("New");
-        int randNb = Random.Range(0, randomSounds.Length);
-        //spatialSoundSource.clip = randomSounds[randNb];
-        spatialSoundSource.spatialBlend = 1.0f;
-        spatialSoundSource.minDistance = 10.0f;
-        spatialSoundSource.volume = Mathf.Pow(10, m_randomVolume/20.0f);
-        muted(m_muteRandom, spatialSoundSource);
-        spatialSoundSource.PlayOneShot(randomSounds[randNb]);
-        chronometer = 0.0f;
-    }
-
 }

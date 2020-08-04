@@ -159,7 +159,6 @@ public class AmbienceRandomLayer : MonoBehaviour
                 fadeOut = false;
                 done = true;
                 playing = false;
-                //randomSoundsSource.Stop();
             }
         }
     }
@@ -210,13 +209,15 @@ public class AmbienceRandomLayer : MonoBehaviour
         float spatialRandZ = Random.Range(m_randomZoneMin.z, m_randomZoneMax.z);
         int randomSign = Random.Range(0,1);
 
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         if(randomSign == 0)
         {
-            child.transform.position = new Vector3(gameObject.transform.position.x + spatialRandX, spatialRandY, transform.position.z + spatialRandZ);
+            child.transform.position = new Vector3(player.transform.position.x + spatialRandX, spatialRandY, player.transform.position.z + spatialRandZ);
         }
         else
         {
-            child.transform.position = new Vector3(gameObject.transform.position.x - spatialRandX, spatialRandY, transform.position.z - spatialRandZ);
+            child.transform.position = new Vector3(player.transform.position.x - spatialRandX, spatialRandY, player.transform.position.z - spatialRandZ);
         }
 
         child.transform.parent = gameObject.transform;
