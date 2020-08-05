@@ -65,6 +65,7 @@
      <Compile Include="Assets\AudioTools\Scripts\Audio\ProceduralDrum.cs" />
      <Compile Include="Assets\AudioTools\Scripts\Audio\ReverbZone.cs" />
      <Compile Include="Assets\AudioTools\Scripts\FPSDisplay.cs" />
+     <Compile Include="Assets\AudioTools\Scripts\ScriptableObjects\AmbienceSO.cs" />
      <Compile Include="Assets\Plugin\audioplugin_UnityPlugin_UnityScript.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />

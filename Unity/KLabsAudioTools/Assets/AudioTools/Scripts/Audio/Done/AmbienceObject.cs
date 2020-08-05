@@ -6,17 +6,15 @@ using UnityEngine.Audio;
 // AmbienceObject.cs by KLabsAudio is free to use and is made to create complex ambience systems in your games.
 // If needed, please contact me at kinaarmusic@gmail.com
 
+[AddComponentMenu("KLabsAudioTools/Ambience/AmbienceObject")]
 public class AmbienceObject : MonoBehaviour
 {   
     //// _General Audio Settings_ /////
 
-    [Header("General Settings")]
-    public GameObject ambienceManager; // Audio Manager (to instantiate AudioSources)
+    public GameObject m_ambienceManager; // Audio Manager (to instantiate AudioSources)
     public AudioMixerGroup m_outputMixerGroup; // Audio Mixer for audio output
     
-    [Range(-48.0f, 3.0f)] // General Output Volume
-    [SerializeField]
-    private float m_generalVolume = 0.0f;
+    public float m_generalVolume = 0.0f;
     
     public bool m_muteGeneral = false; // General Mute
     public float m_fadeInTime = 1.0f; // Fade in time
@@ -28,13 +26,9 @@ public class AmbienceObject : MonoBehaviour
 
     //// _Bed Audio Settings_ ////
 
-    [Header("Bed Settings")]
     public AudioClip m_bed; // Bed audioclip (needs to be perfectly looping)
     
-    [Range(-48.0f, 3.0f)] // Bed volume
-    [SerializeField]
-    private float m_bedVolume = 0.0f;
-    
+    public float m_bedVolume = 0.0f;
     public bool m_muteBed = false; // Bed mute
 
     //// _Private Variables_ ////
@@ -47,7 +41,7 @@ public class AmbienceObject : MonoBehaviour
 
     void Start()
     {
-        managerScript = ambienceManager.gameObject.GetComponent<AmbienceManager>();
+        managerScript = m_ambienceManager.gameObject.GetComponent<AmbienceManager>();
         generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol)/20.0f);
         bedVol = Mathf.Pow(10, m_bedVolume/20.0f);
         bedVolCopy = bedVol;
@@ -62,12 +56,13 @@ public class AmbienceObject : MonoBehaviour
 
             generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol) / 20.0f);
             bedVol = Mathf.Pow(10, m_bedVolume / 20.0f);
-            generalMute = managerScript.mute;
+            //generalMute = managerScript.mute;
 
             fadingIn();
             fadingOut();
-
-            muted(m_muteBed, sourceBed);
+            
+            if(m_muteGeneral) muted(m_muteGeneral, sourceBed);
+            else muted(m_muteBed, sourceBed);
 
             if (fadeOut == false && fadeIn == false && done == true)
             {
@@ -78,7 +73,7 @@ public class AmbienceObject : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        sourceBed = ambienceManager.gameObject.AddComponent<AudioSource>();
+        sourceBed = m_ambienceManager.gameObject.AddComponent<AudioSource>();
         sourceBed.outputAudioMixerGroup = m_outputMixerGroup;
 
         if (collider.gameObject.tag == "Player")

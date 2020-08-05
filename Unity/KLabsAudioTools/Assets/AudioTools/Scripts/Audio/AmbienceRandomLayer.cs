@@ -56,7 +56,7 @@ public class AmbienceRandomLayer : MonoBehaviour
 
     void Start()
     {
-        ambienceManager = gameObject.GetComponent<AmbienceObject>().ambienceManager;
+        ambienceManager = gameObject.GetComponent<AmbienceObject>().m_ambienceManager;
         managerScript = ambienceManager.gameObject.GetComponent<AmbienceManager>();
         m_fadeInTime = gameObject.GetComponent<AmbienceObject>().m_fadeInTime;
         m_fadeOutTime = gameObject.GetComponent<AmbienceObject>().m_fadeOutTime;
@@ -73,6 +73,8 @@ public class AmbienceRandomLayer : MonoBehaviour
         {
             chronometer += Time.deltaTime;
             randTime = Random.Range(-1.0f, 1.0f) + m_triggerTime;
+            if(gameObject.GetComponent<AmbienceObject>().m_muteGeneral) sourceRand.mute = true;
+            else sourceRand.mute = m_muteRandom;
         }
 
         //generalVolume = Mathf.Pow(10, (managerScript.ambienceGeneralVol) / 20.0f);
@@ -105,6 +107,13 @@ public class AmbienceRandomLayer : MonoBehaviour
             {
                 randomSoundPicking();
             }
+        
+        }
+
+        if (objectCreated)
+        {
+            if (gameObject.GetComponent<AmbienceObject>().m_muteGeneral) spatialSoundSource.mute = true;
+            else spatialSoundSource.mute = m_muteRandom;
         }
     }
 

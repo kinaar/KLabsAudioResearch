@@ -2582,7 +2582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88817a328c4a7524ba85e206cb26d4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ambienceManager: {fileID: 1287224276}
+  m_ambienceManager: {fileID: 1287224276}
   m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   m_generalVolume: 0
@@ -2593,17 +2593,6 @@ MonoBehaviour:
   m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
   m_bedVolume: -3
   m_muteBed: 0
-  randomSounds:
-  - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
-  - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
-  - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
-  spatializeRandomSource: 1
-  m_randomVolume: -12
-  m_muteRandom: 0
-  timeBetweenInst: 9
-  timeRandom: 3
-  panRandomization: 50
-  volRandomization: 20
 --- !u!65 &1404775853
 BoxCollider:
   m_ObjectHideFlags: 0
