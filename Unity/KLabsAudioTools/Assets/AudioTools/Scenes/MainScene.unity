@@ -542,67 +542,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1964124275}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &373719233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373719228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb8452c2592a1a49a1e24ba6cad46c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charaAudioClipsArray:
-  - _playOnTrigger: 0
-    soundToTrig:
-    - {fileID: 8300000, guid: c50b31a0849e6584bbfc0057862614c8, type: 3}
-    customKey: 
-    _volume: 0
-    _randomPitch: 2
-    bypassReverb: 0
-    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 3
-    soundToTrig:
-    - {fileID: 8300000, guid: a8f1e211a0c940245b3aa84e8ac4f388, type: 3}
-    - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
-    - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
-    customKey: f
-    _volume: -12
-    _randomPitch: 15
-    bypassReverb: 1
-    m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 2
-    soundToTrig:
-    - {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
-    - {fileID: 8300000, guid: ac68a57469fb5d441af0ef56fc3a95b7, type: 3}
-    customKey: 
-    _volume: -12
-    _randomPitch: 5
-    bypassReverb: 1
-    m_audioMixer: {fileID: -3987554871935173319, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 1
-    soundToTrig:
-    - {fileID: 8300000, guid: c2168e9eae7b32840a8e01102073338b, type: 3}
-    customKey: 
-    _volume: 3
-    _randomPitch: 1
-    bypassReverb: 0
-    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
-  - _playOnTrigger: 3
-    soundToTrig:
-    - {fileID: 8300000, guid: c2168e9eae7b32840a8e01102073338b, type: 3}
-    customKey: h
-    _volume: 3
-    _randomPitch: 1
-    bypassReverb: 0
-    m_audioMixer: {fileID: 570819487755265221, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-      type: 2}
 --- !u!1 &374137085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,7 +946,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7146037015166171626, guid: 47e59fab1cf8d20409246f28312cbbdb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 47e59fab1cf8d20409246f28312cbbdb, type: 3}
 --- !u!1 &531096596
 GameObject:
@@ -1398,6 +1338,9 @@ GameObject:
   m_Component:
   - component: {fileID: 920631663}
   - component: {fileID: 920631664}
+  - component: {fileID: 920631665}
+  - component: {fileID: 920631666}
+  - component: {fileID: 920631667}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -1428,23 +1371,65 @@ MonoBehaviour:
   m_GameObject: {fileID: 920631662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff8ab588eb49f94d8112ce3ebacaa7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 121858771022fc346a21e4a89045c9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_outputMixerGroup: {fileID: 4999304014586523870, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
+  m_muteGeneral: 0
   userBpm: 125
-  m_musicalSegments:
-  - m_playType: 0
-    triggerObject: {fileID: 1534529269}
-    m_whenTriggered: 2
-    musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
-    m_segmentBeatLength: 8
-  - m_playType: 0
-    triggerObject: {fileID: 340036736}
-    m_whenTriggered: 3
-    musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
-    m_segmentBeatLength: 8
+  m_playType: 1
+  triggerObject: {fileID: 0}
+  musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
+  m_segmentBarLength: 8
+  fadeInTime: 5
+  nextEventTime: 0
+  loopNumber: 1
+--- !u!114 &920631665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920631662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerObject: {fileID: 1534529269}
+  musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
+  m_segmentBarLength: 8
+--- !u!114 &920631666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920631662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerObject: {fileID: 340036736}
+  musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
+  m_segmentBarLength: 8
+--- !u!114 &920631667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920631662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerObject: {fileID: 991523330}
+  musicalSegment: {fileID: 8300000, guid: 3daaf91d5bd768e4bb82fb09cd4e7a60, type: 3}
+  m_segmentBarLength: 8
 --- !u!1 &932509133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1554,113 @@ Transform:
   - {fileID: 1693486712}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &991523330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 991523335}
+  - component: {fileID: 991523334}
+  - component: {fileID: 991523333}
+  - component: {fileID: 991523332}
+  - component: {fileID: 991523331}
+  m_Layer: 0
+  m_Name: MusicTrigger_01 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &991523331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991523330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec4c550ed66aef44b100e2bc0a3c825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEntered: 0
+--- !u!65 &991523332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991523330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &991523333
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991523330}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fdd9e186691092b44a5bc0fb305df553, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &991523334
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991523330}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &991523335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991523330}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -44.37, y: 2.412, z: 0}
+  m_LocalScale: {x: 1, y: 5, z: 7.9214}
+  m_Children: []
+  m_Father: {fileID: 1693486712}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1058614175
 PrefabInstance:
@@ -2339,7 +2431,6 @@ GameObject:
   - component: {fileID: 1552849203}
   - component: {fileID: 1552849202}
   - component: {fileID: 1552849201}
-  - component: {fileID: 1552849200}
   m_Layer: 0
   m_Name: Ambiance_Tunnel (1)
   m_TagString: AmbienceZone
@@ -2361,37 +2452,6 @@ Transform:
   m_Father: {fileID: 1662948030}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1552849200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552849198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88817a328c4a7524ba85e206cb26d4b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-    type: 2}
-  m_generalVolume: 0
-  m_muteGeneral: 0
-  m_fadeInTime: 1
-  m_fadeOutTime: 1
-  sourceBed: {fileID: 0}
-  m_bed: {fileID: 8300000, guid: 4657fb1d5dac2e745a0f76fa5f33317c, type: 3}
-  m_bedVolume: -3
-  m_muteBed: 0
-  randomSounds: []
-  spatializeRandomSource: 0
-  m_randomVolume: 0
-  m_muteRandom: 0
-  timeBetweenInst: 5
-  timeRandom: 1
-  panRandomization: 0
-  volRandomization: 0
 --- !u!65 &1552849201
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2464,7 +2524,6 @@ GameObject:
   - component: {fileID: 1607142248}
   - component: {fileID: 1607142247}
   - component: {fileID: 1607142246}
-  - component: {fileID: 1607142245}
   - component: {fileID: 1607142250}
   m_Layer: 0
   m_Name: Ambiance_Ext
@@ -2473,40 +2532,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1607142245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607142244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88817a328c4a7524ba85e206cb26d4b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-    type: 2}
-  m_generalVolume: 0
-  m_muteGeneral: 0
-  m_fadeInTime: 0.7
-  m_fadeOutTime: 2
-  sourceBed: {fileID: 0}
-  m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
-  m_bedVolume: -12
-  m_muteBed: 1
-  randomSounds:
-  - {fileID: 8300000, guid: 4d3605e78ccf19a4f8ab475c0a464520, type: 3}
-  - {fileID: 8300000, guid: 4a729c2e74aee944e92891ec43ce265f, type: 3}
-  - {fileID: 8300000, guid: a619f6c117bca524f9f37d003dddf2ac, type: 3}
-  spatializeRandomSource: 1
-  m_randomVolume: -3
-  m_muteRandom: 0
-  timeBetweenInst: 5
-  timeRandom: 1
-  panRandomization: 50
-  volRandomization: 20
 --- !u!65 &1607142246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2608,7 +2633,6 @@ GameObject:
   - component: {fileID: 1632185381}
   - component: {fileID: 1632185380}
   - component: {fileID: 1632185379}
-  - component: {fileID: 1632185378}
   m_Layer: 0
   m_Name: Ambiance_Ext (1)
   m_TagString: AmbienceZone
@@ -2630,37 +2654,6 @@ Transform:
   m_Father: {fileID: 1662948030}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1632185378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632185376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88817a328c4a7524ba85e206cb26d4b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-    type: 2}
-  m_generalVolume: 0
-  m_muteGeneral: 0
-  m_fadeInTime: 0.7
-  m_fadeOutTime: 2
-  sourceBed: {fileID: 0}
-  m_bed: {fileID: 8300000, guid: 2742716a15724c3409dbe7c1367dda30, type: 3}
-  m_bedVolume: -12
-  m_muteBed: 0
-  randomSounds: []
-  spatializeRandomSource: 0
-  m_randomVolume: 0
-  m_muteRandom: 0
-  timeBetweenInst: 5
-  timeRandom: 1
-  panRandomization: 0
-  volRandomization: 0
 --- !u!65 &1632185379
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2900,7 +2893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1662948030
 Transform:
   m_ObjectHideFlags: 0
@@ -2939,8 +2932,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listener: {fileID: 373719228}
-  fqcWhenOccluded: 4000
-  transitionTime: 5
+  frequencyOccludedHalf: 5000
+  frequencyOccludedFull: 4000
+  transitionTime: 7
+  interEarDistance: 0.75
 --- !u!82 &1677240993
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3013,7 +3008,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3078,7 +3073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1693486712
 Transform:
   m_ObjectHideFlags: 0
@@ -3092,6 +3087,7 @@ Transform:
   m_Children:
   - {fileID: 1534529270}
   - {fileID: 340036737}
+  - {fileID: 991523335}
   m_Father: {fileID: 960734784}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3117,6 +3113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
@@ -3295,7 +3296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1918467904
 Transform:
   m_ObjectHideFlags: 0
@@ -3421,7 +3422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15
+      value: 9.66
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3563,7 +3564,6 @@ GameObject:
   - component: {fileID: 2051808046}
   - component: {fileID: 2051808045}
   - component: {fileID: 2051808044}
-  - component: {fileID: 2051808043}
   m_Layer: 0
   m_Name: Ambiance_Tunnel
   m_TagString: AmbienceZone
@@ -3585,37 +3585,6 @@ Transform:
   m_Father: {fileID: 1662948030}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2051808043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051808041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88817a328c4a7524ba85e206cb26d4b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ambienceManager: {fileID: 1918467903}
-  m_outputMixerGroup: {fileID: -17727839245873235, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
-    type: 2}
-  m_generalVolume: 0
-  m_muteGeneral: 0
-  m_fadeInTime: 1
-  m_fadeOutTime: 1
-  sourceBed: {fileID: 0}
-  m_bed: {fileID: 8300000, guid: 4657fb1d5dac2e745a0f76fa5f33317c, type: 3}
-  m_bedVolume: -3
-  m_muteBed: 0
-  randomSounds: []
-  spatializeRandomSource: 0
-  m_randomVolume: 0
-  m_muteRandom: 0
-  timeBetweenInst: 5
-  timeRandom: 1
-  panRandomization: 0
-  volRandomization: 0
 --- !u!65 &2051808044
 BoxCollider:
   m_ObjectHideFlags: 0

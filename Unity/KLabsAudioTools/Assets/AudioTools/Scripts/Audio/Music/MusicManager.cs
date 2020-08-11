@@ -51,9 +51,6 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //beatTimer = Time.deltaTime;
-        //musicSource.PlayOneShot(musicalSegment);
-        //managerscript.isPlaying = true;
         for(int i = 0; i<m_musicalSegments.Length; i++)
         {
             segmentSource.Add(gameObject.AddComponent<AudioSource>());

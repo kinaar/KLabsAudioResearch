@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 // AmbienceManager.cs by KLabsAudio is free to use and is made to create complex ambience systems in your games.
 // If needed, please contact me at kinaarmusic@gmail.com
 
+[AddComponentMenu("KLabsAudioTools/Ambience/AmbienceManager")]
 public class AmbienceManager : MonoBehaviour
 {
     [Header("(Please use the mixer for general output volume)")]
