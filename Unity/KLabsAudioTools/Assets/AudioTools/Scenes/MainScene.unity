@@ -2819,7 +2819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1654884409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2841,7 +2841,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654884408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -68.831726, y: -6.376103, z: 11.850624}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1918467904}
@@ -2903,10 +2903,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listener: {fileID: 373719228}
-  frequencyOccludedHalf: 5000
-  frequencyOccludedFull: 4000
-  transitionTime: 7
+  m_fqHalfOccluded: 3000
+  m_fqFullOccluded: 2000
+  transitionTime: 10
   interEarDistance: 0.75
+  m_volFadeTime: 1
+  m_occludedVol: -23
 --- !u!82 &1677240993
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2928,8 +2930,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 11.536573
+  MinDistance: 2.1360378
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -3078,7 +3080,7 @@ PrefabInstance:
     - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
       propertyPath: m_Name
-      value: Wall (7)
+      value: AudioSource
       objectReference: {fileID: 0}
     - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
@@ -3088,7 +3090,7 @@ PrefabInstance:
     - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
