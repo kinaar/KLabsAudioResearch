@@ -1400,6 +1400,8 @@ MonoBehaviour:
   triggerObject: {fileID: 1534529269}
   musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
   m_segmentBarLength: 8
+  transition: 1
+  crossFadeTime: 1
 --- !u!114 &920631666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1415,6 +1417,8 @@ MonoBehaviour:
   triggerObject: {fileID: 340036736}
   musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
   m_segmentBarLength: 8
+  transition: 0
+  crossFadeTime: 1
 --- !u!114 &920631667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,6 +1434,8 @@ MonoBehaviour:
   triggerObject: {fileID: 991523330}
   musicalSegment: {fileID: 8300000, guid: 3daaf91d5bd768e4bb82fb09cd4e7a60, type: 3}
   m_segmentBarLength: 8
+  transition: 0
+  crossFadeTime: 1
 --- !u!1 &932509133
 GameObject:
   m_ObjectHideFlags: 0

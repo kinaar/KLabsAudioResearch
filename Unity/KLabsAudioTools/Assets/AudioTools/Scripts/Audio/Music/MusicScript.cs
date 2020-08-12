@@ -29,9 +29,12 @@ public class MusicScript : MonoBehaviour
     int counter = 0;
     [HideInInspector]
     public int loopNumber = 1;
-    bool playing = false;
+    bool playing = false, toFade = false;
 
     AudioSource sourceA, sourceB, sourceCopy;
+    List<AudioClip> audioList = new List<AudioClip>();
+    List<AudioSource> audioSourceList = new List<AudioSource>();
+    int nbTrigger = 0;
 
     void Start()
     {
@@ -76,6 +79,11 @@ public class MusicScript : MonoBehaviour
             bpmCounter();
         }
 
+        if(toFade)
+        {
+            crossFade(sourceA, sourceB);
+        }
+
     }
 
     void fadeIn()
@@ -98,13 +106,12 @@ public class MusicScript : MonoBehaviour
         {
             dspCopy -= dspTime;
             counter += 1;
-            //Debug.Log(counter);
-            dspCopy = dspTime;
+            Debug.Log(counter);
             if (counter == m_segmentBarLength)
             {
                 counter = 0;
                 loopNumber += 1;
-                Debug.Log(loopNumber);
+                //Debug.Log(loopNumber);
             }
             dspCopy = dspTime;
         }
@@ -115,21 +122,19 @@ public class MusicScript : MonoBehaviour
 
         if (trigger)
         {
+            nbTrigger++;
             playing = true;
-            Debug.Log("Enter in " + objTrigger);
 
             if(loopNumber == 0) loopNumber = 1;
 
             nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
 
-            if(sourceA != null)
-            {
-                //Destroy(sourceA);
-            }
-
             sourceA = gameObject.AddComponent<AudioSource>();
             sourceA.loop = true;
             sourceA.clip = clip;
+
+            audioSourceList.Add(sourceA);
+
             sourceA.PlayScheduled(nextEventTime);
             sourceB.SetScheduledEndTime(nextEventTime);
             sourceCopy = sourceB;
@@ -139,16 +144,56 @@ public class MusicScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Exit " + objTrigger);
+            nbTrigger--;
+
+            sourceCopy = audioSourceList[nbTrigger-1];
+            sourceA = audioSourceList[nbTrigger];
+
             if(loopNumber == 0) loopNumber = 1;
 
             nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
 
             sourceCopy.PlayScheduled(nextEventTime);
             sourceA.SetScheduledEndTime(nextEventTime);
+            audioSourceList.Remove(sourceA);
             sourceB = sourceCopy;
 
             loopNumber = 0;
+        }
+    }
+
+    public void fade(bool trigger,  GameObject objTrigger, AudioClip clip, int barLength)
+    {
+        if(trigger)
+        {
+            sourceA = gameObject.AddComponent<AudioSource>();
+            sourceA.loop = true;
+            sourceA.clip = clip;
+            sourceA.volume = 0.0f;
+
+            if(loopNumber == 0) loopNumber = 1;
+
+            nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
+
+            sourceA.PlayScheduled(nextEventTime);
+            toFade = true;
+            //sourceB.SetScheduledEndTime(nextEventTime);
+            sourceCopy = sourceB;
+            sourceB = sourceA;
+
+            loopNumber = 0;
+        }
+    }
+
+    void crossFade(AudioSource audioA, AudioSource audioB)
+    {
+        audioA.volume += Time.deltaTime / 2.0f;
+        audioB.volume -= Time.deltaTime / 2.0f;
+
+        if(audioB.volume <= 0)
+        {
+            audioB.Stop();
+            toFade = false;
         }
     }
 

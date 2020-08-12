@@ -9,6 +9,9 @@ public class MusicSegment : MonoBehaviour
     public GameObject triggerObject;
     public AudioClip musicalSegment;
     public int m_segmentBarLength = 4;
+    public enum transitionType {nextExitCue, fade, stop};
+    public transitionType transition;
+    public float crossFadeTime = 1.0f;
 
     float userBpm;
     AudioSource segmentSource;
@@ -38,8 +41,14 @@ public class MusicSegment : MonoBehaviour
 
         if(triggerEnterCopy != triggerEnter)
         {
-
-            gameObject.GetComponent<MusicScript>().musicTrigger(triggerEnter, triggerObject, musicalSegment, m_segmentBarLength);
+            if(transition == transitionType.nextExitCue)
+            {
+                gameObject.GetComponent<MusicScript>().musicTrigger(triggerEnter, triggerObject, musicalSegment, m_segmentBarLength);
+            }
+            if(transition == transitionType.fade)
+            {
+                gameObject.GetComponent<MusicScript>().fade(triggerEnter, triggerObject, musicalSegment, m_segmentBarLength);
+            }
 
             triggerEnterCopy = triggerEnter;
         }
