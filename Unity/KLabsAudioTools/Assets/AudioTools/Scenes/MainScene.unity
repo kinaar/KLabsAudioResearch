@@ -1339,7 +1339,6 @@ GameObject:
   - component: {fileID: 920631663}
   - component: {fileID: 920631664}
   - component: {fileID: 920631665}
-  - component: {fileID: 920631666}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -1377,8 +1376,8 @@ MonoBehaviour:
     type: 2}
   m_muteGeneral: 0
   userBpm: 125
-  m_playType: 1
-  triggerObject: {fileID: 0}
+  m_playType: 0
+  triggerObject: {fileID: 1534529269}
   musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
   m_segmentBarLength: 8
   fadeInTime: 5
@@ -1396,28 +1395,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerObject: {fileID: 1534529269}
-  musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
+  triggerObject: {fileID: 991523330}
+  musicalSegment: {fileID: 8300000, guid: 3daaf91d5bd768e4bb82fb09cd4e7a60, type: 3}
   m_segmentBarLength: 8
   transition: 0
-  crossFadeTime: 0.5
-  fadeOutTime: 1
---- !u!114 &920631666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920631662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerObject: {fileID: 340036736}
-  musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
-  m_segmentBarLength: 8
-  transition: 1
   crossFadeTime: 1
   fadeOutTime: 1
 --- !u!1 &932509133

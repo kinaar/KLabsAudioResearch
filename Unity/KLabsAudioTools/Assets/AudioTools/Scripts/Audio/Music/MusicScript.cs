@@ -36,6 +36,7 @@ public class MusicScript : MonoBehaviour
     List<AudioClip> audioList = new List<AudioClip>();
     List<AudioSource> audioSourceList = new List<AudioSource>();
     int nbTrigger = 0;
+    bool triggerEnter, triggerEnterCopy;
 
     void Start()
     {
@@ -46,6 +47,7 @@ public class MusicScript : MonoBehaviour
         segmentSourceA.volume = 0.0f;
         segmentSourceA.loop = true;
         
+        triggerEnterCopy = triggerEnter;
 
     }
 
@@ -72,6 +74,27 @@ public class MusicScript : MonoBehaviour
             nextEventTime = dspTime;
             sourceB = segmentSourceA;
             playing = true;
+        }
+
+        if(m_playType == playType.OnTriggerEnter && !segmentSourceA.isPlaying && !playing)
+        {
+            triggerEnter = triggerObject.GetComponent<MusicObject>().triggerEntered;
+
+            if (triggerEnterCopy != triggerEnter)
+            {
+                dspTime = AudioSettings.dspTime;
+                dspCopy = dspTime;
+                segmentSourceA.loop = true;
+                segmentSourceA.PlayScheduled(dspTime);
+                nextEventTime = dspTime;
+                sourceB = segmentSourceA;
+
+                audioSourceList.Add(segmentSourceA);
+                nbTrigger++;
+
+                playing = true;
+                triggerEnterCopy = triggerEnter;
+            }
         }
 
         if(playing)
