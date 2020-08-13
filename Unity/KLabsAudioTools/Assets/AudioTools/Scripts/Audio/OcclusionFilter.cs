@@ -8,11 +8,11 @@ using UnityEngine;
 public class OcclusionFilter : MonoBehaviour
 {
 
-    public GameObject listener;
+    public GameObject m_listener;
     float fqcWhenOccluded = 20000.0f;
     public float m_fqHalfOccluded = 3000.0f;
     public float m_fqFullOccluded = 2000.0f;
-    public float transitionTime = 1.0f;
+    public float m_freqFadeTime = 1.0f;
     public float interEarDistance = 0.75f;
     private AudioSource audioSource;
     private float maxDistance = 0.0f;
@@ -34,11 +34,11 @@ public class OcclusionFilter : MonoBehaviour
         earL = new GameObject("Ear L");
         earR = new GameObject("Ear R");
         
-        earL.transform.position = new Vector3(listener.transform.position.x + interEarDistance, listener.transform.position.y, listener.transform.position.z);
-        earL.transform.parent = listener.transform;
+        earL.transform.position = new Vector3(m_listener.transform.position.x + interEarDistance, m_listener.transform.position.y, m_listener.transform.position.z);
+        earL.transform.parent = m_listener.transform;
 
-        earR.transform.position = new Vector3(listener.transform.position.x - interEarDistance, listener.transform.position.y, listener.transform.position.z);
-        earR.transform.parent = listener.transform;
+        earR.transform.position = new Vector3(m_listener.transform.position.x - interEarDistance, m_listener.transform.position.y, m_listener.transform.position.z);
+        earR.transform.parent = m_listener.transform;
     }
 
     private void Update()
@@ -46,10 +46,10 @@ public class OcclusionFilter : MonoBehaviour
         RaycastHit hitL;
         RaycastHit hitR;
 
-        Vector3 earPosition = listener.transform.position + listener.transform.forward; //listener.transform.position
+        Vector3 earPosition = m_listener.transform.position + m_listener.transform.forward; //m_listener.transform.position
 
-        Vector3 sourceVectorL = earL.transform.position; //new Vector3(earPosition.x + 0.5f, listener.transform.position.y, listener.transform.position.z + listener.transform.forward.z);
-        Vector3 sourceVectorR = earR.transform.position; //new Vector3(earPosition.x - 0.5f, listener.transform.position.y, listener.transform.position.z + listener.transform.forward.z);
+        Vector3 sourceVectorL = earL.transform.position; //new Vector3(earPosition.x + 0.5f, m_listener.transform.position.y, m_listener.transform.position.z + m_listener.transform.forward.z);
+        Vector3 sourceVectorR = earR.transform.position; //new Vector3(earPosition.x - 0.5f, m_listener.transform.position.y, m_listener.transform.position.z + m_listener.transform.forward.z);
         Vector3 playerVector = transform.position;
         Vector3 destinationL = sourceVectorL - playerVector;
         Vector3 destinationR = sourceVectorR - playerVector;
@@ -101,7 +101,7 @@ public class OcclusionFilter : MonoBehaviour
                     Debug.Log("both occluded");
                     fqcWhenOccluded = m_fqFullOccluded;
                     audioVolumeVar = Mathf.Pow(10, m_occludedVol / 20.0f);
-                    audioSource.spread = 180.0f;
+                    audioSource.spread = 90.0f;
                 }
                 else
                 {
@@ -131,7 +131,7 @@ public class OcclusionFilter : MonoBehaviour
 
         if (lowpass.cutoffFrequency > fqc)
         {
-            lowpass.cutoffFrequency -= 100.0f * transitionTime;
+            lowpass.cutoffFrequency -= 300.0f * (1.0f / m_freqFadeTime);
         }
         else if(lowpass.cutoffFrequency < fqc)
         {

@@ -2902,10 +2902,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60937c48822025f41add47da6f1b6f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listener: {fileID: 373719228}
+  m_listener: {fileID: 373719228}
   m_fqHalfOccluded: 3000
   m_fqFullOccluded: 2000
-  transitionTime: 10
+  m_freqFadeTime: 0.05
   interEarDistance: 0.75
   m_volFadeTime: 1
   m_occludedVol: -23
