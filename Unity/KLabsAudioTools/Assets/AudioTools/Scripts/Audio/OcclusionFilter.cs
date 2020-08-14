@@ -17,8 +17,11 @@ public class OcclusionFilter : MonoBehaviour
     private AudioSource audioSource;
     private float maxDistance = 0.0f;
     float audioSourceCopy;
-    public float m_volFadeTime = 1.0f;
+    public float m_volFadeTime = 0.0f;
+    public float m_volume = 1.0f;
     public float m_occludedVol = -12.0f;
+    public float m_spreadHalfOccluded = 30.0f;
+    public float m_spreadFullOccluded = 50.0f;
 
     private GameObject earL;
     private GameObject earR;
@@ -27,6 +30,7 @@ public class OcclusionFilter : MonoBehaviour
     bool earROccluded = false;
 
     float audioVolumeVar;
+    float spreadVar;
 
     void Start()
     {
@@ -101,58 +105,79 @@ public class OcclusionFilter : MonoBehaviour
                     Debug.Log("both occluded");
                     fqcWhenOccluded = m_fqFullOccluded;
                     audioVolumeVar = Mathf.Pow(10, m_occludedVol / 20.0f);
-                    audioSource.spread = 90.0f;
+                    spreadVar = m_spreadFullOccluded / 100.0f * 180.0f;
                 }
                 else
                 {
                     fqcWhenOccluded = m_fqHalfOccluded;
                     float vol = (m_occludedVol + audioSourceCopy) / 2;
                     audioVolumeVar = Mathf.Pow(10, vol / 20.0f);
-                    audioSource.spread = 45.0f;
+                    spreadVar = m_spreadHalfOccluded / 100.0f * 180.0f;
                 }
             }
             else
             {
                 fqcWhenOccluded = 20000.0f;
-                audioVolumeVar = 0.6f;
-                audioSource.spread = 0.0f;
+                audioVolumeVar = Mathf.Pow(10, m_volume / 20.0f);
+                spreadVar = 0.0f;
             }
-            
+              
             occluded(fqcWhenOccluded);
             occludedVolume(audioVolumeVar);
+            occludedSpread(spreadVar);
 
         }
     }
 
     void occluded(float fqc)
     {
-
         AudioLowPassFilter lowpass = gameObject.GetComponent<AudioLowPassFilter>();
 
-        if (lowpass.cutoffFrequency > fqc)
+        if (lowpass.cutoffFrequency != fqc)
         {
-            lowpass.cutoffFrequency -= 300.0f * (1.0f / m_freqFadeTime);
+            if (lowpass.cutoffFrequency > fqc)
+            {
+                lowpass.cutoffFrequency -= Time.deltaTime * 10000 * (1.0f / m_freqFadeTime);
+            }
+            if (lowpass.cutoffFrequency < fqc)
+            {
+                lowpass.cutoffFrequency += Time.deltaTime * 10000 * (1.0f / m_freqFadeTime);
+            }
         }
-        else if(lowpass.cutoffFrequency < fqc)
-        {
-            lowpass.cutoffFrequency = fqc - 1.0f;
-        }
-
-        //lowpass.cutoffFrequency = fqc;
     }
 
     void occludedVolume(float volume)
     {
         if (audioSource.volume != volume)
         {
-            if (audioSource.volume >= volume)
+            if (audioSource.volume > volume)
             {
-                audioSource.volume -= Time.deltaTime / m_volFadeTime;
+                audioSource.volume -= Time.deltaTime * (1.0f / m_volFadeTime);
             }
             
-            if (audioSource.volume <= volume)
+            if (audioSource.volume < volume)
             {
-                audioSource.volume += Time.deltaTime / m_volFadeTime;
+                audioSource.volume += Time.deltaTime * (1.0f / m_volFadeTime);
+            }
+
+            if(audioSource.volume - volume <= 0.01f)
+            {
+                audioSource.volume = volume;
+            }
+        }
+    }
+
+    void occludedSpread(float spreadValue)
+    {
+        if(audioSource.spread != spreadValue)
+        {
+            if(audioSource.spread > spreadValue)
+            {
+                audioSource.spread -= Time.deltaTime * 180.0f;
+            }
+            if(audioSource.spread < spreadValue)
+            {
+                audioSource.spread += Time.deltaTime * 180.0f;
             }
         }
     }

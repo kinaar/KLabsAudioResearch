@@ -1088,6 +1088,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
+        type: 3}
+      propertyPath: m_TagString
+      value: OcclusionObject
+      objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1161,6 +1166,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
+        type: 3}
+      propertyPath: m_TagString
+      value: OcclusionObject
       objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
@@ -1451,7 +1461,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a49e160e6e4519049881625f1c4aa5b5, type: 2}
+  - {fileID: 2100000, guid: 297e3a11e7d07fc48b4f71056b4f927f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1821,6 +1831,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
+        type: 3}
+      propertyPath: m_TagString
+      value: OcclusionObject
+      objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1969,6 +1984,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
+        type: 3}
+      propertyPath: m_TagString
+      value: OcclusionObject
       objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
@@ -2903,12 +2923,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_listener: {fileID: 373719228}
-  m_fqHalfOccluded: 3000
-  m_fqFullOccluded: 2000
-  m_freqFadeTime: 0.05
+  m_fqHalfOccluded: 7000
+  m_fqFullOccluded: 5000
+  m_freqFadeTime: 0.3
   interEarDistance: 0.75
-  m_volFadeTime: 1
-  m_occludedVol: -23
+  m_volFadeTime: 0.5
+  m_volume: -9
+  m_occludedVol: -18
+  m_spreadHalfOccluded: 60
+  m_spreadFullOccluded: 90
 --- !u!82 &1677240993
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2920,7 +2943,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2894626614072739350, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: f81b6ad0d2663584493fe5c9227bf701, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3daaf91d5bd768e4bb82fb09cd4e7a60, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2929,7 +2952,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 2.1360378
   MaxDistance: 30
   Pan2D: 0
@@ -2981,7 +3004,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3031,6 +3054,16 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!165 &1677240995
+AudioHighPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677240988}
+  m_Enabled: 1
+  m_CutoffFrequency: 300
+  m_HighpassResonanceQ: 1
 --- !u!1 &1693486711
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
+        type: 3}
+      propertyPath: m_TagString
+      value: OcclusionObject
       objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
