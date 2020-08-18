@@ -1122,7 +1122,7 @@ MonoBehaviour:
     type: 2}
   m_volume: 0
   m_mute: 0
-  m_triggerChoice: 1
+  m_triggerChoice: 0
   m_audioClips:
   - {fileID: 8300000, guid: b3059c37b5633ea48bec407e98c398ec, type: 3}
   m_customKey: 
@@ -2616,13 +2616,19 @@ MonoBehaviour:
   m_listener: {fileID: 373719228}
   m_fqHalfOccluded: 4000
   m_fqFullOccluded: 3000
-  m_freqFadeTime: 0.1
+  m_freqFadeTime: 0.2
   interEarDistance: 0.75
   m_volFadeTime: 0.1
   m_volume: -6
   m_occludedVol: -15
   m_spreadHalfOccluded: 30
   m_spreadFullOccluded: 65
+  m_useReverb: 1
+  m_audioMixer: {fileID: 24100000, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e, type: 2}
+  m_parameterName: reverbInt
+  m_reverbLevelOccluded: 0
+  m_reverbLevel: -15
+  m_reverbFadeTime: 1
 --- !u!169 &1248399381
 AudioLowPassFilter:
   m_ObjectHideFlags: 0

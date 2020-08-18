@@ -204,8 +204,6 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 387a3ab897af7ea4d966ae7b1dd4b97f
     name: reverbSend
-  - guid: e2adfc4b65d54f04f84348a24d3af3f2
-    name: reverbInt
   m_AudioMixerGroupViews:
   - guids:
     - f7a6263016fc2ab4b8070ee03fdc736c
@@ -281,7 +279,7 @@ AudioMixerSnapshotController:
     22d4273965075eb43be79a73c64fa8c1: 2.22
     7b67fce96e90c6a4eabd43982fe847ab: 2
     2661661bedf425348bd6315da024c880: 100
-    e2adfc4b65d54f04f84348a24d3af3f2: -9
+    e2adfc4b65d54f04f84348a24d3af3f2: -80
     1541c46c2da9c144ea8e8cd5c1c9e304: -12
     4be5729c9b44ed040beb9aefb74b9d9e: 2437
     8f648e4dfc226c2459385e3184fe90cb: -2000

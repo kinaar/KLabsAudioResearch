@@ -70,6 +70,7 @@ public class MusicScript : MonoBehaviour
             dspTime = AudioSettings.dspTime;
             dspCopy = dspTime;
             segmentSourceA.loop = true;
+            segmentSourceA.volume = 0.0f;
             segmentSourceA.PlayScheduled(dspTime);
             nextEventTime = dspTime;
             sourceB = segmentSourceA;
@@ -85,6 +86,7 @@ public class MusicScript : MonoBehaviour
                 dspTime = AudioSettings.dspTime;
                 dspCopy = dspTime;
                 segmentSourceA.loop = true;
+                segmentSourceA.volume = 0.0f;
                 segmentSourceA.PlayScheduled(dspTime);
                 nextEventTime = dspTime;
                 sourceB = segmentSourceA;
@@ -217,16 +219,17 @@ public class MusicScript : MonoBehaviour
 
             sourceCopy = audioSourceList[nbTrigger-1];
             sourceA = audioSourceList[nbTrigger];
-            sourceCopy.volume = 1.0f;
+            //sourceCopy.volume = 1.0f;
 
             if(loopNumber == 0) loopNumber = 1;
 
             nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
 
             sourceCopy.PlayScheduled(nextEventTime);
-            sourceA.SetScheduledEndTime(nextEventTime);
             audioSourceList.Remove(sourceA);
-            sourceB = sourceCopy;
+            sourceB = sourceA;
+            sourceA = sourceCopy;
+            toFade = true;
 
             loopNumber = 0;
         }
@@ -240,7 +243,7 @@ public class MusicScript : MonoBehaviour
 
         if(audioB.volume <= 0)
         {
-            audioB.Stop();
+            //audioB.Stop();
             toFade = false;
             sourceCopy = sourceB;
             sourceB = sourceA;

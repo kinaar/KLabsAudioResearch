@@ -1349,6 +1349,7 @@ GameObject:
   - component: {fileID: 920631663}
   - component: {fileID: 920631664}
   - component: {fileID: 920631665}
+  - component: {fileID: 920631666}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -1390,7 +1391,7 @@ MonoBehaviour:
   triggerObject: {fileID: 1534529269}
   musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
   m_segmentBarLength: 8
-  fadeInTime: 5
+  fadeInTime: 10
   nextEventTime: 0
   loopNumber: 1
 --- !u!114 &920631665
@@ -1405,12 +1406,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerObject: {fileID: 991523330}
+  triggerObject: {fileID: 340036736}
   musicalSegment: {fileID: 8300000, guid: 3daaf91d5bd768e4bb82fb09cd4e7a60, type: 3}
   m_segmentBarLength: 8
-  transition: 0
+  transition: 1
   crossFadeTime: 1
   fadeOutTime: 1
+--- !u!114 &920631666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920631662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerObject: {fileID: 991523330}
+  musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
+  m_segmentBarLength: 8
+  transition: 2
+  crossFadeTime: 1
+  fadeOutTime: 10
 --- !u!1 &932509133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,7 +2858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1654884409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2932,6 +2951,12 @@ MonoBehaviour:
   m_occludedVol: -18
   m_spreadHalfOccluded: 60
   m_spreadFullOccluded: 90
+  m_useReverb: 0
+  m_audioMixer: {fileID: 0}
+  m_parameterName: 
+  m_reverbLevelOccluded: -12
+  m_reverbLevel: 0
+  m_reverbFadeTime: 1
 --- !u!82 &1677240993
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3123,7 +3148,7 @@ PrefabInstance:
     - target: {fileID: 2503687907614375823, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8578281150821895972, guid: 38c6ad6d4cfa36143a9a786704f54f90,
         type: 3}

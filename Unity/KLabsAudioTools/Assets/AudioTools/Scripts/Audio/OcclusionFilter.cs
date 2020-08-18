@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [AddComponentMenu("KLabsAudioTools/OcclusionObject")]
 [RequireComponent(typeof(AudioSource))]
@@ -17,11 +18,18 @@ public class OcclusionFilter : MonoBehaviour
     private AudioSource audioSource;
     private float maxDistance = 0.0f;
     float audioSourceCopy;
-    public float m_volFadeTime = 0.0f;
-    public float m_volume = 1.0f;
+    public float m_volFadeTime = 0.5f;
+    public float m_volume = 0.0f;
     public float m_occludedVol = -12.0f;
     public float m_spreadHalfOccluded = 30.0f;
     public float m_spreadFullOccluded = 50.0f;
+
+    public bool m_useReverb = false;
+    public AudioMixer m_audioMixer;
+    public string m_parameterName;
+    public float m_reverbLevelOccluded = -12.0f;
+    public float m_reverbLevel = 0.0f;
+    public float m_reverbFadeTime = 1.0f;
 
     private GameObject earL;
     private GameObject earR;
@@ -31,6 +39,8 @@ public class OcclusionFilter : MonoBehaviour
 
     float audioVolumeVar;
     float spreadVar;
+    float reverbVar;
+    float revUpdate;
 
     void Start()
     {
@@ -106,6 +116,7 @@ public class OcclusionFilter : MonoBehaviour
                     fqcWhenOccluded = m_fqFullOccluded;
                     audioVolumeVar = Mathf.Pow(10, m_occludedVol / 20.0f);
                     spreadVar = m_spreadFullOccluded / 100.0f * 180.0f;
+                    reverbVar = m_reverbLevelOccluded;
                 }
                 else
                 {
@@ -113,6 +124,7 @@ public class OcclusionFilter : MonoBehaviour
                     float vol = (m_occludedVol + audioSourceCopy) / 2;
                     audioVolumeVar = Mathf.Pow(10, vol / 20.0f);
                     spreadVar = m_spreadHalfOccluded / 100.0f * 180.0f;
+                    reverbVar = m_reverbLevelOccluded;
                 }
             }
             else
@@ -120,11 +132,14 @@ public class OcclusionFilter : MonoBehaviour
                 fqcWhenOccluded = 20000.0f;
                 audioVolumeVar = Mathf.Pow(10, m_volume / 20.0f);
                 spreadVar = 0.0f;
+                reverbVar = m_reverbLevel;
             }
               
             occluded(fqcWhenOccluded);
             occludedVolume(audioVolumeVar);
             occludedSpread(spreadVar);
+
+            if(m_useReverb) occludedReverb(reverbVar);
 
         }
     }
@@ -178,6 +193,27 @@ public class OcclusionFilter : MonoBehaviour
             if(audioSource.spread < spreadValue)
             {
                 audioSource.spread += Time.deltaTime * 180.0f;
+            }
+        }
+    }
+
+
+        void occludedReverb(float reverbValue)
+    {
+        float rev;
+        m_audioMixer.GetFloat(m_parameterName, out rev);
+
+        if(rev != reverbValue)
+        {
+            if(rev > reverbValue)
+            {
+                rev -= Time.deltaTime *  48.0f / m_reverbFadeTime;
+                m_audioMixer.SetFloat(m_parameterName, rev);
+            }
+            if(rev < reverbValue)
+            {
+                rev += Time.deltaTime * 48.0f / m_reverbFadeTime;
+                m_audioMixer.SetFloat(m_parameterName, rev);
             }
         }
     }
