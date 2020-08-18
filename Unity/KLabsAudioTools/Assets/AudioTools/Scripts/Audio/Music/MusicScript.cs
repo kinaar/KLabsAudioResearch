@@ -5,21 +5,18 @@ using UnityEngine.Audio;
 
 public class MusicScript : MonoBehaviour
 {
-    
-    [Header("General Settings")]
     public AudioMixerGroup m_outputMixerGroup; // Audio Mixer for audio output
     private float m_generalVolume = 0.0f;
     public bool m_muteGeneral = false; // General Mute
-    public float userBpm = 120.0f;
+    public float m_userBpm = 120.0f;
 
 
-    [Header("First Segment Settings")]
     public playType m_playType;
     public enum playType { OnTriggerEnter, onAwake }
-    public GameObject triggerObject;
-    public AudioClip musicalSegment;
+    public GameObject m_triggerObject;
+    public AudioClip m_musicalSegment;
     public int m_segmentBarLength = 4;
-    public float fadeInTime = 1.0f;
+    public float m_fadeInTime = 1.0f;
 
     AudioSource segmentSourceA, segmentSourceB;
     double dspTime = 0.0f, dspCopy = 0.0f;
@@ -43,7 +40,7 @@ public class MusicScript : MonoBehaviour
         segmentSourceA = gameObject.AddComponent<AudioSource>();
         //segmentSourceB = gameObject.AddComponent<AudioSource>();
 
-        segmentSourceA.clip = musicalSegment;
+        segmentSourceA.clip = m_musicalSegment;
         segmentSourceA.volume = 0.0f;
         segmentSourceA.loop = true;
         
@@ -55,11 +52,11 @@ public class MusicScript : MonoBehaviour
     void Update()
     {
 
-        if (fadeInTime == 0.0f)
+        if (m_fadeInTime == 0.0f)
         {
             segmentSourceA.volume = 1.0f;
         }
-        else if (fadeInTime != 0.0f && !faded)
+        else if (m_fadeInTime != 0.0f && !faded)
         {
             fadeIn();
         }
@@ -79,7 +76,7 @@ public class MusicScript : MonoBehaviour
 
         if(m_playType == playType.OnTriggerEnter && !segmentSourceA.isPlaying && !playing)
         {
-            triggerEnter = triggerObject.GetComponent<MusicObject>().triggerEntered;
+            triggerEnter = m_triggerObject.GetComponent<MusicObject>().triggerEntered;
 
             if (triggerEnterCopy != triggerEnter)
             {
@@ -114,7 +111,7 @@ public class MusicScript : MonoBehaviour
 
     void fadeIn()
     {
-        segmentSourceA.volume += Time.deltaTime / fadeInTime;
+        segmentSourceA.volume += Time.deltaTime / m_fadeInTime;
 
         if (segmentSourceA.volume >= 1.0f)
         {
@@ -126,7 +123,7 @@ public class MusicScript : MonoBehaviour
     void bpmCounter()
     {
 
-        double beatInterval = 60.0f / userBpm;
+        double beatInterval = 60.0f / m_userBpm;
 
         if (dspTime - dspCopy >= beatInterval)
         {
@@ -153,7 +150,7 @@ public class MusicScript : MonoBehaviour
 
             if(loopNumber == 0) loopNumber = 1;
 
-            nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
+            nextEventTime += (60.0f / m_userBpm * barLength) * (loopNumber);
 
             sourceA = gameObject.AddComponent<AudioSource>();
             sourceA.loop = true;
@@ -177,7 +174,7 @@ public class MusicScript : MonoBehaviour
 
             if(loopNumber == 0) loopNumber = 1;
 
-            nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
+            nextEventTime += (60.0f / m_userBpm * barLength) * (loopNumber);
 
             sourceCopy.PlayScheduled(nextEventTime);
             sourceA.SetScheduledEndTime(nextEventTime);
@@ -205,7 +202,7 @@ public class MusicScript : MonoBehaviour
 
             if(loopNumber == 0) loopNumber = 1;
 
-            nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
+            nextEventTime += (60.0f / m_userBpm * barLength) * (loopNumber);
 
             sourceA.PlayScheduled(nextEventTime);
             toFade = true;
@@ -223,7 +220,7 @@ public class MusicScript : MonoBehaviour
 
             if(loopNumber == 0) loopNumber = 1;
 
-            nextEventTime += (60.0f / userBpm * barLength) * (loopNumber);
+            nextEventTime += (60.0f / m_userBpm * barLength) * (loopNumber);
 
             sourceCopy.PlayScheduled(nextEventTime);
             audioSourceList.Remove(sourceA);

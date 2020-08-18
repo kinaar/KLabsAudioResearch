@@ -1386,12 +1386,12 @@ MonoBehaviour:
   m_outputMixerGroup: {fileID: 4999304014586523870, guid: 5e5dd2875a3cb8e4697d31f3f3fdf31e,
     type: 2}
   m_muteGeneral: 0
-  userBpm: 125
+  m_userBpm: 120
   m_playType: 0
-  triggerObject: {fileID: 1534529269}
-  musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
+  m_triggerObject: {fileID: 1534529269}
+  m_musicalSegment: {fileID: 8300000, guid: 2a607fb010502674795c9e924b767879, type: 3}
   m_segmentBarLength: 8
-  fadeInTime: 10
+  m_fadeInTime: 5
   nextEventTime: 0
   loopNumber: 1
 --- !u!114 &920631665
@@ -1406,12 +1406,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerObject: {fileID: 340036736}
-  musicalSegment: {fileID: 8300000, guid: 3daaf91d5bd768e4bb82fb09cd4e7a60, type: 3}
+  m_triggerObject: {fileID: 0}
+  m_musicalSegment: {fileID: 0}
   m_segmentBarLength: 8
-  transition: 1
-  crossFadeTime: 1
-  fadeOutTime: 1
+  m_transition: 0
+  m_crossfadeTime: 1
+  m_fadeOutTime: 1
 --- !u!114 &920631666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1424,12 +1424,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f9a3c298b71b64b8312808aa96346a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerObject: {fileID: 991523330}
-  musicalSegment: {fileID: 8300000, guid: 0cc8278edbcd94b409f146f54b941375, type: 3}
+  m_triggerObject: {fileID: 0}
+  m_musicalSegment: {fileID: 0}
   m_segmentBarLength: 8
-  transition: 2
-  crossFadeTime: 1
-  fadeOutTime: 10
+  m_transition: 0
+  m_crossfadeTime: 1
+  m_fadeOutTime: 1
 --- !u!1 &932509133
 GameObject:
   m_ObjectHideFlags: 0

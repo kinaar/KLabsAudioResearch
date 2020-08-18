@@ -6,13 +6,13 @@ using UnityEngine.Audio;
 public class MusicSegment : MonoBehaviour
 {
 
-    public GameObject triggerObject;
-    public AudioClip musicalSegment;
+    public GameObject m_triggerObject;
+    public AudioClip m_musicalSegment;
     public int m_segmentBarLength = 4;
+    public transitionType m_transition;
     public enum transitionType {nextExitCue, fade, stop};
-    public transitionType transition;
-    public float crossFadeTime = 1.0f;
-    public float fadeOutTime = 1.0f;
+    public float m_crossfadeTime = 1.0f;
+    public float m_fadeOutTime = 1.0f;
 
     float userBpm;
     AudioSource segmentSource;
@@ -22,11 +22,11 @@ public class MusicSegment : MonoBehaviour
 
     void Start()
     {
-        userBpm = gameObject.GetComponent<MusicScript>().userBpm;
-        segmentSource = triggerObject.AddComponent<AudioSource>();
-        segmentSource.clip = musicalSegment;
+        userBpm = gameObject.GetComponent<MusicScript>().m_userBpm;
+        segmentSource = m_triggerObject.AddComponent<AudioSource>();
+        segmentSource.clip = m_musicalSegment;
         segmentSource.loop = true;
-        triggerEnter = triggerObject.GetComponent<MusicObject>().triggerEntered;
+        triggerEnter = m_triggerObject.GetComponent<MusicObject>().triggerEntered;
         triggerEnterCopy = triggerEnter;
 
         nextEventTime = gameObject.GetComponent<MusicScript>().nextEventTime;
@@ -38,22 +38,22 @@ public class MusicSegment : MonoBehaviour
     {
         nextEventTime = gameObject.GetComponent<MusicScript>().nextEventTime;
         loopNumber = gameObject.GetComponent<MusicScript>().loopNumber;
-        triggerEnter = triggerObject.GetComponent<MusicObject>().triggerEntered;
+        triggerEnter = m_triggerObject.GetComponent<MusicObject>().triggerEntered;
 
         if(triggerEnterCopy != triggerEnter)
         {
-            if(transition == transitionType.nextExitCue)
+            if(m_transition == transitionType.nextExitCue)
             {
-                gameObject.GetComponent<MusicScript>().musicTrigger(triggerEnter, triggerObject, musicalSegment, m_segmentBarLength);
+                gameObject.GetComponent<MusicScript>().musicTrigger(triggerEnter, m_triggerObject, m_musicalSegment, m_segmentBarLength);
             }
-            if(transition == transitionType.fade)
+            if(m_transition == transitionType.fade)
             {
-                gameObject.GetComponent<MusicScript>().fade(triggerEnter, triggerObject, musicalSegment, m_segmentBarLength, crossFadeTime);
+                gameObject.GetComponent<MusicScript>().fade(triggerEnter, m_triggerObject, m_musicalSegment, m_segmentBarLength, m_crossfadeTime);
             }
 
-            if(transition == transitionType.stop)
+            if(m_transition == transitionType.stop)
             {
-                gameObject.GetComponent<MusicScript>().stop(triggerEnter, triggerObject, musicalSegment, m_segmentBarLength, fadeOutTime);
+                gameObject.GetComponent<MusicScript>().stop(triggerEnter, m_triggerObject, m_musicalSegment, m_segmentBarLength, m_fadeOutTime);
             }
 
             triggerEnterCopy = triggerEnter;
